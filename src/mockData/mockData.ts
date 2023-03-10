@@ -392,23 +392,6 @@ export const mockData = [
   },
   {
     adult: false,
-    backdrop_path: '/jiqD14fg7UTZOT6qgvzTmfRYpWI.jpg',
-    genre_ids: [28, 80],
-    id: 495764,
-    original_language: 'en',
-    original_title: 'Birds of Prey (and the Fantabulous Emancipation of One Harley Quinn)',
-    overview:
-      'Харли Квинн рассталась с Джокером и через некоторое время сообщила об этом всему Готэму, взорвав тот самый химзавод. Девушка больше не тоскует по несостоявшимся отношениям - ей некогда, так как она также потеряла неприкосновенность, и теперь за ней охотятся разной степени криминализованности граждане, желающие отомстить. А в это время ставший крёстным отцом Готема Роман Сайонис очень жаждет вернуть пропавший бриллиант, который стащила у его подручного малолетняя карманница.',
-    popularity: 121.282,
-    poster_path: '/wh5FEKiNeirvD02T2Ui22duZGCZ.jpg',
-    release_date: '2020-02-05',
-    title: 'Хищные птицы: Потрясающая история Харли Квинн',
-    video: false,
-    vote_average: 7,
-    vote_count: 8806
-  },
-  {
-    adult: false,
     backdrop_path: '/oj9pEWQq5higRzKWiE8f0d5hBSb.jpg',
     genre_ids: [53, 27, 18],
     id: 617708,

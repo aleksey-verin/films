@@ -112,6 +112,12 @@ main {
         width: 100px;
         text-align: center;
       }
+      &-left {
+        flex: 0 0 50%;
+      }
+      &-right {
+        flex: 0 0 50%;
+      }
     }
     &__info {
       display: flex;
@@ -218,6 +224,7 @@ main {
     }
   }
 }
+// =============== MODAL WINDOW ================
 
 // =============== LIGHT THEME ================
 

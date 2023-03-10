@@ -14,12 +14,12 @@ const ItemFilm = ({ text, score, backdrop_path, poster_path }: ItemFilmProps) =>
 
   const imagePath = poster_path || backdrop_path
   const url = `https://image.tmdb.org/t/p/w500/${imagePath}`
-  console.log(url)
+  // console.log(url)
 
   return (
     <div className="results-item">
       <div className="results-item__image">
-        <img src="" alt="film" />
+        <img src={url} alt="film" />
       </div>
       <div className="results-item__info film">
         <div className="film-actions">

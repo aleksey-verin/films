@@ -95,6 +95,12 @@ main {
   width: 100px;
   text-align: center;
 }
+.filters-pagination__buttons-left {
+  flex: 0 0 50%;
+}
+.filters-pagination__buttons-right {
+  flex: 0 0 50%;
+}
 .filters-pagination__info {
   display: flex;
   justify-content: center;

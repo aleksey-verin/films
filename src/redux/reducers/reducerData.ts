@@ -1,7 +1,8 @@
+import { mockData } from '../../mockData/mockdata'
 import { ACTIONS } from '../actions'
 
 const initialState = {
-  filmsData: [],
+  filmsData: mockData, ///=============
   genresData: []
 }
 
