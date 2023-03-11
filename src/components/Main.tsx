@@ -7,6 +7,7 @@ import Filters from './Main/Filters'
 import Results from './Main/Results'
 
 const defaultFiltersValue = {
+  list: 'allFilms',
   sorting: 'voteDescending',
   filterYear: 'none',
   filterGenres: []
@@ -15,8 +16,10 @@ const defaultFiltersValue = {
 const Main = () => {
   console.log('render Main')
   const dispatch = useDispatch()
-  const initialFilmsList = useSelector((state) => state.filmsData)
-  const genres = useSelector((state) => state.genresData)
+  const initialFilmsList = useSelector((state) => state.reducerData.filmsData)
+  const initialFavoriteList = useSelector((state) => state.reducerData.favoriteList)
+  const initialSeeLaterList = useSelector((state) => state.reducerData.seeLaterList)
+  const genres = useSelector((state) => state.reducerData.genresData)
 
   const [filteredList, setFilteredList] = useState([])
   const [offset, setOffset] = useState(12)
@@ -43,10 +46,14 @@ const Main = () => {
   }, [])
 
   //================
-
+  const [userFilmList, setUserFilmList] = useState(defaultFiltersValue.list)
   const [sorting, setSorting] = useState(defaultFiltersValue.sorting)
   const [filterYear, setFilterYear] = useState(defaultFiltersValue.filterYear)
   const [filterGenres, setFilterGenres] = useState(defaultFiltersValue.filterGenres)
+
+  const getUserFilmList = (listType: string) => {
+    setUserFilmList(listType)
+  }
 
   const getSorting = (sortType: string) => {
     setSorting(sortType)
@@ -64,22 +71,36 @@ const Main = () => {
 
   const resetAllFilters = () => {
     console.log('reset')
+    setUserFilmList(defaultFiltersValue.list)
     setSorting(defaultFiltersValue.sorting)
     setFilterYear(defaultFiltersValue.filterYear)
     setFilterGenres(defaultFiltersValue.filterGenres)
     resetOffset()
   }
 
-  const getSortData = (sortType: string) => {
+  const getInitialFilmData = (filmType: string) => {
+    switch (filmType) {
+      case 'allFilms':
+        return initialFilmsList
+      case 'favoriteList':
+        return initialFavoriteList
+      case 'seeLaterList':
+        return initialSeeLaterList
+      default:
+        break
+    }
+  }
+
+  const getSortData = (data, sortType: string) => {
     switch (sortType) {
       case 'popularDescending':
-        return [...initialFilmsList.sort((a, b) => b.popularity - a.popularity)]
+        return [...data.sort((a, b) => b.popularity - a.popularity)]
       case 'popularAscending':
-        return [...initialFilmsList.sort((a, b) => a.popularity - b.popularity)]
+        return [...data.sort((a, b) => a.popularity - b.popularity)]
       case 'voteDescending':
-        return [...initialFilmsList.sort((a, b) => b.vote_average - a.vote_average)]
+        return [...data.sort((a, b) => b.vote_average - a.vote_average)]
       case 'voteAscending':
-        return [...initialFilmsList.sort((a, b) => a.vote_average - b.vote_average)]
+        return [...data.sort((a, b) => a.vote_average - b.vote_average)]
       default:
         break
     }
@@ -105,10 +126,11 @@ const Main = () => {
 
   useEffect(() => {
     console.log('useEffect calc')
-    const sortedData = getSortData(sorting)
+    const userInitialFilmList = getInitialFilmData(userFilmList)
+    const sortedData = getSortData(userInitialFilmList, sorting)
     const filteredData = getFilteredData(sortedData, filterYear, filterGenres)
     setFilteredList(filteredData)
-  }, [sorting, filterYear, filterGenres])
+  }, [sorting, filterYear, filterGenres, userFilmList])
 
   //=======
   // useEffect(()=> {
@@ -157,6 +179,8 @@ const Main = () => {
           filterGenres={filterGenres}
           resetAllFilters={resetAllFilters}
           resetOffset={resetOffset}
+          userFilmList={userFilmList}
+          getUserFilmList={getUserFilmList}
         />
         <Results shownList={shownList} />
       </div>

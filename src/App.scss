@@ -4,6 +4,7 @@
   display: flex;
   flex-direction: column;
   gap: 15px;
+  position: relative;
 }
 
 .wrapper {
@@ -29,6 +30,30 @@ nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.like-button {
+  padding: 0.4em 1.2em;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+  &:hover {
+    border-color: #646cff;
+    & a {
+      color: #fff;
+    }
+  }
+  & a {
+    color: #fff;
+  }
+  &:active {
+    outline: 4px auto -webkit-focus-ring-color;
+  }
 }
 
 // =============== MAIN ================
@@ -79,6 +104,12 @@ main {
     }
     &__clear {
       margin-bottom: 10px;
+    }
+    &__lists {
+      & label {
+        display: flex;
+        margin-bottom: 5px;
+      }
     }
     &__sort {
       & label {
@@ -176,7 +207,8 @@ main {
     align-items: center;
     gap: 5px;
     & svg path {
-      fill: #767676;
+      // fill: #767676;
+      // color: #646cff;
     }
     &__score {
       flex: 1 0 auto;
@@ -188,9 +220,16 @@ main {
       & svg {
         width: 20px;
         height: 20px;
+        fill: #767676;
       }
       &:hover svg path {
-        fill: #414040;
+        fill: #767676;
+      }
+      &.checked svg {
+        fill: gold;
+      }
+      &:hover.checked svg path {
+        fill: gold;
       }
     }
     &__bookmark {
@@ -200,9 +239,16 @@ main {
       & svg {
         width: 20px;
         height: 16px;
+        fill: #767676;
       }
       &:hover svg path {
-        fill: #414040;
+        fill: #767676;
+      }
+      &.checked svg {
+        fill: gold;
+      }
+      &:hover.checked svg path {
+        fill: gold;
       }
     }
   }
@@ -225,6 +271,69 @@ main {
   }
 }
 // =============== MODAL WINDOW ================
+
+.modal {
+  position: fixed;
+  width: 100%;
+  height: calc(100% + 15px);
+  background: #000000c4;
+  display: flex;
+  // align-items: center;
+  justify-content: center;
+  & button,
+  input {
+    border: solid 1px rgba(255, 255, 255, 0.473);
+  }
+  &-window {
+    position: relative;
+    margin-top: 10%;
+    padding: 20px;
+    width: 300px;
+    height: 300px;
+    background-color: #1a1a1a;
+    border-radius: 5px;
+    border: solid 1px rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: 4px 3px 10px 2px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 4px 3px 10px 2px rgba(0, 0, 0, 0.2);
+    box-shadow: 4px 3px 10px 2px rgba(0, 0, 0, 0.2);
+    &__title {
+      padding: 15px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    &__form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      & button {
+        margin-top: 5px;
+        width: 180px;
+      }
+      & input {
+        width: 170px;
+      }
+    }
+    &__close {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      top: 5px;
+      right: 5px;
+      cursor: pointer;
+      &:hover svg path {
+        fill: #f3f3f3;
+      }
+      & svg {
+        width: 100%;
+        height: 100%;
+      }
+      & svg path {
+        fill: rgba(255, 255, 255, 0.473);
+      }
+    }
+  }
+}
 
 // =============== LIGHT THEME ================
 
@@ -252,6 +361,23 @@ main {
       &:hover {
         background-color: #f3f3f3;
       }
+    }
+  }
+  .modal {
+    &-window {
+      background-color: #fff;
+      &__close {
+        &:hover svg path {
+          fill: #1f1f1f;
+        }
+        & svg path {
+          fill: rgba(74, 74, 74, 0.85);
+        }
+      }
+    }
+    & button,
+    input {
+      border: solid 1px rgba(42, 42, 42, 0.473);
     }
   }
 }

@@ -1,6 +1,12 @@
 export const ACTIONS = {
   SET_FILMS: 'SET_FILMS',
-  SET_GENRES: 'SET_GENRES'
+  SET_GENRES: 'SET_GENRES',
+  ADD_FAVORITE: 'ADD_FAVORITE',
+  REMOVE_FAVORITE: 'REMOVE_FAVORITE',
+  ADD_SEE_LATER: 'ADD_SEE_LATER',
+  REMOVE_SEE_LATER: 'REMOVE_SEE_LATER',
+  SET_IS_AUTH: 'SET_IS_AUTH',
+  SET_IS_OPEN: 'SET_IS_OPEN'
 }
 
 export interface IFilms {
@@ -25,6 +31,14 @@ export interface IGenres {
   name: string
 }
 
+export interface IIsAuth {
+  isAuth: boolean
+}
+
+export interface IIsOpen {
+  isOpen: boolean
+}
+
 export const setFilms = (payload: IFilms) => {
   return {
     type: ACTIONS.SET_FILMS,
@@ -35,6 +49,46 @@ export const setFilms = (payload: IFilms) => {
 export const setGenres = (payload: IGenres) => {
   return {
     type: ACTIONS.SET_GENRES,
+    payload
+  }
+}
+export const addFavorite = (payload) => {
+  return {
+    type: ACTIONS.ADD_FAVORITE,
+    payload
+  }
+}
+
+export const removeFavorite = (payload) => {
+  return {
+    type: ACTIONS.REMOVE_FAVORITE,
+    payload
+  }
+}
+export const addSeeLater = (payload) => {
+  return {
+    type: ACTIONS.ADD_SEE_LATER,
+    payload
+  }
+}
+
+export const removeSeeLater = (payload) => {
+  return {
+    type: ACTIONS.REMOVE_SEE_LATER,
+    payload
+  }
+}
+
+export const setIsAuth = (payload: IIsAuth) => {
+  return {
+    type: ACTIONS.SET_IS_AUTH,
+    payload
+  }
+}
+
+export const setIsOpen = (payload: IIsOpen) => {
+  return {
+    type: ACTIONS.SET_IS_OPEN,
     payload
   }
 }

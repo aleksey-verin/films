@@ -42,18 +42,19 @@ h1 {
   line-height: 1.1;
 }
 
-select {
+select,
+input {
   padding: 0.4em 0.4em;
 }
 button {
-  padding: 0.4em 1.2em;
+  padding: 0.4em 1.2em 0.5em;
 }
 
 button,
-select {
+select,
+input {
   border-radius: 8px;
   border: 1px solid transparent;
-
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
@@ -62,9 +63,12 @@ select {
   transition: border-color 0.25s;
 }
 button:hover,
-select:hover {
+select:hover,
+input:hover {
   border-color: #646cff;
 }
+input:focus,
+input:focus-visible,
 button:focus,
 select:focus,
 select:focus-visible,
@@ -74,10 +78,10 @@ button:focus-visible {
 
 button:disabled {
   cursor: auto;
-  border-color: #b8b8b8;
+  border-color: #494949;
 }
 button:hover:disabled {
-  border-color: #b8b8b8;
+  border-color: #494949;
 }
 
 @media (prefers-color-scheme: light) {
@@ -91,5 +95,11 @@ button:hover:disabled {
   button,
   select {
     background-color: #f9f9f9;
+  }
+  button:disabled {
+    border-color: #cecece;
+  }
+  button:hover:disabled {
+    border-color: #cecece;
   }
 }

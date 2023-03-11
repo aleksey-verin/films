@@ -1,21 +1,56 @@
 import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import {
+  addFavorite,
+  addSeeLater,
+  removeFavorite,
+  removeSeeLater,
+  setIsOpen
+} from '../../../redux/actions'
 import ImgBookmark from '../../Images/ImgBookmark'
 import ImgFavorite from '../../Images/ImgFavorite'
+import ImgFavoriteGold from '../../Images/ImgFavoriteGold'
 
 type ItemFilmProps = {
   text: string
+  id: number
   score: number
   backdrop_path: string
   poster_path: string
 }
 
-const ItemFilm = ({ text, score, backdrop_path, poster_path }: ItemFilmProps) => {
-  const viewText = text.length > 80 ? text.slice(0, 80) + '..' : text
+const ItemFilm = ({ item }) => {
+  const { id, title, vote_average, backdrop_path, poster_path } = item
+  const dispatch = useDispatch()
+  const isAuth = useSelector((state) => state.reducerAuth.isAuth)
+  const favoriteList = useSelector((state) => state.reducerData.favoriteList)
+  const seeLaterList = useSelector((state) => state.reducerData.seeLaterList)
+  const isItemInFavoriteList = favoriteList.findIndex((film) => film.id === id) >= 0
+  const isItemInSeeLaterList = seeLaterList.findIndex((film) => film.id === id) >= 0
+
+  const viewText = title.length > 80 ? title.slice(0, 80) + '..' : title
 
   const imagePath = poster_path || backdrop_path
   const url = `https://image.tmdb.org/t/p/w500/${imagePath}`
   // console.log(url)
 
+  const handleFavorite = () => {
+    if (isAuth) {
+      isItemInFavoriteList ? dispatch(removeFavorite(item)) : dispatch(addFavorite(item))
+    } else {
+      dispatch(setIsOpen(true))
+    }
+  }
+
+  const handleBookmark = () => {
+    if (isAuth) {
+      isItemInSeeLaterList ? dispatch(removeSeeLater(item)) : dispatch(addSeeLater(item))
+    } else {
+      dispatch(setIsOpen(true))
+    }
+  }
+
+  console.log(favoriteList)
   return (
     <div className="results-item">
       <div className="results-item__image">
@@ -23,11 +58,16 @@ const ItemFilm = ({ text, score, backdrop_path, poster_path }: ItemFilmProps) =>
       </div>
       <div className="results-item__info film">
         <div className="film-actions">
-          <div className="film-actions__score">Рейтинг: {score.toFixed(1)}</div>
-          <div className="film-actions__favorite">
+          <div className="film-actions__score">Рейтинг: {vote_average.toFixed(1)}</div>
+          <div
+            onClick={handleFavorite}
+            className={`film-actions__favorite ${isItemInFavoriteList ? 'checked' : null}`}>
             <ImgFavorite />
+            {/* <ImgFavoriteGold /> */}
           </div>
-          <div className="film-actions__bookmark">
+          <div
+            onClick={handleBookmark}
+            className={`film-actions__bookmark ${isItemInSeeLaterList ? 'checked' : null}`}>
             <ImgBookmark />
           </div>
         </div>

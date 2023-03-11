@@ -4,6 +4,7 @@
   display: flex;
   flex-direction: column;
   gap: 15px;
+  position: relative;
 }
 
 .wrapper {
@@ -28,6 +29,30 @@ nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.like-button {
+  padding: 0.4em 1.2em;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+.like-button:hover {
+  border-color: #646cff;
+}
+.like-button:hover a {
+  color: #fff;
+}
+.like-button a {
+  color: #fff;
+}
+.like-button:active {
+  outline: 4px auto -webkit-focus-ring-color;
 }
 
 main {
@@ -69,6 +94,10 @@ main {
 }
 .filters-filters__clear {
   margin-bottom: 10px;
+}
+.filters-filters__lists label {
+  display: flex;
+  margin-bottom: 5px;
 }
 .filters-filters__sort label {
   display: flex;
@@ -149,9 +178,6 @@ main {
   align-items: center;
   gap: 5px;
 }
-.film-actions svg path {
-  fill: #767676;
-}
 .film-actions__score {
   flex: 1 0 auto;
 }
@@ -163,9 +189,16 @@ main {
 .film-actions__favorite svg {
   width: 20px;
   height: 20px;
+  fill: #767676;
 }
 .film-actions__favorite:hover svg path {
-  fill: #414040;
+  fill: #767676;
+}
+.film-actions__favorite.checked svg {
+  fill: gold;
+}
+.film-actions__favorite:hover.checked svg path {
+  fill: gold;
 }
 .film-actions__bookmark {
   display: flex;
@@ -175,9 +208,16 @@ main {
 .film-actions__bookmark svg {
   width: 20px;
   height: 16px;
+  fill: #767676;
 }
 .film-actions__bookmark:hover svg path {
-  fill: #414040;
+  fill: #767676;
+}
+.film-actions__bookmark.checked svg {
+  fill: gold;
+}
+.film-actions__bookmark:hover.checked svg path {
+  fill: gold;
 }
 .film-text {
   font-weight: 700;
@@ -195,6 +235,66 @@ main {
 }
 .film-details:hover {
   background-color: #232323;
+}
+
+.modal {
+  position: fixed;
+  width: 100%;
+  height: calc(100% + 15px);
+  background: rgba(0, 0, 0, 0.768627451);
+  display: flex;
+  justify-content: center;
+}
+.modal button,
+.modal input {
+  border: solid 1px rgba(255, 255, 255, 0.473);
+}
+.modal-window {
+  position: relative;
+  margin-top: 10%;
+  padding: 20px;
+  width: 300px;
+  height: 300px;
+  background-color: #1a1a1a;
+  border-radius: 5px;
+  border: solid 1px rgba(0, 0, 0, 0.1);
+  box-shadow: 4px 3px 10px 2px rgba(0, 0, 0, 0.2);
+}
+.modal-window__title {
+  padding: 15px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+.modal-window__form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.modal-window__form button {
+  margin-top: 5px;
+  width: 180px;
+}
+.modal-window__form input {
+  width: 170px;
+}
+.modal-window__close {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: 5px;
+  right: 5px;
+  cursor: pointer;
+}
+.modal-window__close:hover svg path {
+  fill: #f3f3f3;
+}
+.modal-window__close svg {
+  width: 100%;
+  height: 100%;
+}
+.modal-window__close svg path {
+  fill: rgba(255, 255, 255, 0.473);
 }
 
 @media (prefers-color-scheme: light) {
@@ -220,5 +320,18 @@ main {
   }
   .film-details:hover {
     background-color: #f3f3f3;
+  }
+  .modal-window {
+    background-color: #fff;
+  }
+  .modal-window__close:hover svg path {
+    fill: #1f1f1f;
+  }
+  .modal-window__close svg path {
+    fill: rgba(74, 74, 74, 0.85);
+  }
+  .modal button,
+  .modal input {
+    border: solid 1px rgba(42, 42, 42, 0.473);
   }
 }/*# sourceMappingURL=App.css.map */

@@ -7,16 +7,8 @@ const Results = ({ shownList }) => {
   return (
     <div className="results">
       {shownList
-        ? shownList.map(({ id, title, vote_average, backdrop_path, poster_path }) => {
-            return (
-              <ItemFilm
-                key={id}
-                text={title}
-                score={vote_average}
-                backdrop_path={backdrop_path}
-                poster_path={poster_path}
-              />
-            )
+        ? shownList.map((item) => {
+            return <ItemFilm key={item.id} item={item} />
           })
         : null}
     </div>

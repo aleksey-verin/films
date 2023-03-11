@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
 import { IGenres } from '../../redux/actions'
 
 type FiltersProps = {
@@ -16,6 +17,8 @@ type FiltersProps = {
   filterGenres: number[]
   resetAllFilters: () => void
   resetOffset: () => void
+  userFilmList: string
+  getUserFilmList: (listType: string) => void
 }
 
 const Filters = ({
@@ -32,12 +35,21 @@ const Filters = ({
   getFilterGenres,
   filterGenres,
   resetAllFilters,
-  resetOffset
+  resetOffset,
+  userFilmList,
+  getUserFilmList
 }: FiltersProps) => {
   console.log('render Filters')
 
+  const isAuth = useSelector((state) => state.reducerAuth.isAuth)
+
   const currentPage = offset / pagination
   const amountOfPages = Math.ceil(filteredListLength / pagination)
+
+  const handleFilmList = (e) => {
+    const filmList = e.target.value
+    getUserFilmList(filmList)
+  }
 
   const handleSort = (e) => {
     const sortBasicType = e.target.value
@@ -58,12 +70,28 @@ const Filters = ({
     resetOffset()
   }
 
+  handleFilmList
+
   return (
     <div className="filters">
       <div className="filters-title">Фильтры</div>
       <div className="filters-filters">
         <div className="filters-filters__clear">
           <button onClick={resetAllFilters}>Сбросить все фильтры</button>
+        </div>
+        <div className="filters-filters__lists">
+          <form>
+            <label htmlFor="list">Список фильмов:</label>
+            <select onChange={handleFilmList} value={userFilmList} name="list" id="list">
+              <option value="allFilms">Все фильмы</option>
+              <option disabled={!isAuth} value="favoriteList">
+                Избранные
+              </option>
+              <option disabled={!isAuth} value="seeLaterList">
+                Посмотреть позже
+              </option>
+            </select>
+          </form>
         </div>
         <div className="filters-filters__sort">
           <form>
