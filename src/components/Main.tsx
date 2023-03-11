@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { mockData } from '../mockData/mockdata'
-import { setFilms, setGenres } from '../redux/actions'
+import { IFilms, setGenres } from '../redux/actions'
+import { IRootState } from '../redux/redux'
 import { requestFilms, requestGenres } from '../server/request'
 import Filters from './Main/Filters'
 import Results from './Main/Results'
@@ -16,10 +16,10 @@ const defaultFiltersValue = {
 const Main = () => {
   console.log('render Main')
   const dispatch = useDispatch()
-  const initialFilmsList = useSelector((state) => state.reducerData.filmsData)
-  const initialFavoriteList = useSelector((state) => state.reducerData.favoriteList)
-  const initialSeeLaterList = useSelector((state) => state.reducerData.seeLaterList)
-  const genres = useSelector((state) => state.reducerData.genresData)
+  const initialFilmsList = useSelector((state: IRootState) => state.reducerData.filmsData)
+  const initialFavoriteList = useSelector((state: IRootState) => state.reducerData.favoriteList)
+  const initialSeeLaterList = useSelector((state: IRootState) => state.reducerData.seeLaterList)
+  const genres = useSelector((state: IRootState) => state.reducerData.genresData)
 
   const [filteredList, setFilteredList] = useState([])
   const [offset, setOffset] = useState(12)
@@ -91,7 +91,7 @@ const Main = () => {
     }
   }
 
-  const getSortData = (data, sortType: string) => {
+  const getSortData = (data: IFilms[], sortType: string) => {
     switch (sortType) {
       case 'popularDescending':
         return [...data.sort((a, b) => b.popularity - a.popularity)]
@@ -106,7 +106,7 @@ const Main = () => {
     }
   }
 
-  const getFilteredData = (data, year: string, genres) => {
+  const getFilteredData = (data: IFilms[], year: string, genres: number[]) => {
     let newData = []
     if (year !== 'none') {
       newData = [...data.filter((item) => item.release_date.substr(0, 4) === year)]

@@ -1,11 +1,19 @@
-import { mockData } from '../../mockData/mockdata'
 import { ACTIONS } from '../actions'
 
-const initialState = {
+const initialState: IInitialState = {
   isAuth: JSON.parse(localStorage.getItem('project-isAuth')) || false
 }
 
-const reducerAuth = (state = initialState, action) => {
+type IInitialState = {
+  isAuth: boolean
+}
+
+interface IAuthAction {
+  type: typeof ACTIONS.SET_IS_AUTH
+  payload: boolean
+}
+
+const reducerAuth = (state = initialState, action: IAuthAction) => {
   switch (action.type) {
     case ACTIONS.SET_IS_AUTH:
       return {

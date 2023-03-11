@@ -1,10 +1,11 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setIsAuth, setIsOpen } from '../redux/actions'
+import { IRootState } from '../redux/redux'
 
 const Header = () => {
   const dispatch = useDispatch()
-  const isAuth = useSelector((state) => state.reducerAuth.isAuth)
+  const isAuth = useSelector((state: IRootState) => state.reducerAuth.isAuth)
   console.log(isAuth)
 
   const loginOut = () => {

@@ -1,14 +1,26 @@
 import { mockData } from '../../mockData/mockdata'
-import { ACTIONS } from '../actions'
+import { ACTIONS, IFilms, IGenres } from '../actions'
 
-const initialState = {
+const initialState: IInitialState = {
   filmsData: mockData, ///=============
   genresData: [],
   favoriteList: JSON.parse(localStorage.getItem('project-favoriteList')) || [],
   seeLaterList: JSON.parse(localStorage.getItem('project-seeLaterList')) || []
 }
 
-const reducerData = (state = initialState, action) => {
+type IInitialState = {
+  filmsData: IFilms[]
+  genresData: IFilms[]
+  favoriteList: IFilms[]
+  seeLaterList: IFilms[]
+}
+
+interface IDataAction {
+  type: string
+  payload: IFilms | IGenres
+}
+
+const reducerData = (state = initialState, action: IDataAction) => {
   switch (action.type) {
     case ACTIONS.SET_FILMS:
       return {

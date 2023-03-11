@@ -17,7 +17,9 @@ export const store = createStore(
   rootReducer
   // persistedState
 )
-
+export type IRootState = ReturnType<typeof rootReducer>
+// export type State = ReturnType<typeof store.getState>;
+// export type State = ReturnType<typeof store.getState>;
 store.subscribe(() => {
   localStorage.setItem(
     'project-favoriteList',

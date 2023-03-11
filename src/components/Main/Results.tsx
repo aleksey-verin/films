@@ -2,7 +2,11 @@ import React from 'react'
 import { IFilms } from '../../redux/actions'
 import ItemFilm from './Results/ItemFilm'
 
-const Results = ({ shownList }) => {
+type ResultsProps = {
+  shownList: IFilms[]
+}
+
+const Results = ({ shownList }: ResultsProps) => {
   // const { id, } = filmsList
   return (
     <div className="results">

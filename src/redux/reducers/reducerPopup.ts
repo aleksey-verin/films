@@ -1,11 +1,15 @@
-import { mockData } from '../../mockData/mockdata'
 import { ACTIONS } from '../actions'
 
 const initialState = {
   isOpen: false
 }
 
-const reducerPopup = (state = initialState, action) => {
+interface IPopupAction {
+  type: typeof ACTIONS.SET_IS_OPEN
+  payload: boolean
+}
+
+const reducerPopup = (state = initialState, action: IPopupAction) => {
   switch (action.type) {
     case ACTIONS.SET_IS_OPEN:
       return {

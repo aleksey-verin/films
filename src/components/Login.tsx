@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { setIsAuth, setIsOpen } from '../redux/actions'
-import ImgClose from './Images/Imgclose'
+import ImgClose from './Images/ImgClose'
+// import ImgClose from './Images/ImgClose'
 
 const checkLoginPass = (login: string, password: string) => {
   const successCombination = { login: 'verevaa@yandex.ru', password: '1212' }
@@ -15,7 +16,7 @@ const Login = () => {
   const [loginValue, setLoginValue] = useState(defaultInputValue)
   const [passValue, setPassValue] = useState(defaultInputValue)
 
-  const handleForm = (e) => {
+  const handleForm = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (checkLoginPass(loginValue, passValue)) {
       dispatch(setIsAuth(true))

@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { useSelector } from 'react-redux'
 import { IGenres } from '../../redux/actions'
+import { IRootState } from '../../redux/redux'
 
 type FiltersProps = {
   genres: IGenres[]
@@ -41,29 +42,29 @@ const Filters = ({
 }: FiltersProps) => {
   console.log('render Filters')
 
-  const isAuth = useSelector((state) => state.reducerAuth.isAuth)
+  const isAuth = useSelector((state: IRootState) => state.reducerAuth.isAuth)
 
   const currentPage = offset / pagination
   const amountOfPages = Math.ceil(filteredListLength / pagination)
 
-  const handleFilmList = (e) => {
+  const handleFilmList = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const filmList = e.target.value
     getUserFilmList(filmList)
   }
 
-  const handleSort = (e) => {
+  const handleSort = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const sortBasicType = e.target.value
     console.log(sortBasicType)
     getSorting(sortBasicType)
   }
 
-  const handleFilter = (e) => {
+  const handleFilter = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const userFilterYear = e.target.value
     console.log(userFilterYear)
     getFilterYear(userFilterYear)
   }
 
-  const handleGenres = (e) => {
+  const handleGenres = (e: React.ChangeEvent<HTMLInputElement>) => {
     const userGenres = Number(e.target.value)
     const checked = e.target.checked
     getFilterGenres(userGenres, checked)

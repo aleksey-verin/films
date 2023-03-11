@@ -3,28 +3,25 @@ import { useDispatch, useSelector } from 'react-redux'
 import {
   addFavorite,
   addSeeLater,
+  IFilms,
   removeFavorite,
   removeSeeLater,
   setIsOpen
 } from '../../../redux/actions'
+import { IRootState } from '../../../redux/redux'
 import ImgBookmark from '../../Images/ImgBookmark'
 import ImgFavorite from '../../Images/ImgFavorite'
-import ImgFavoriteGold from '../../Images/ImgFavoriteGold'
 
 type ItemFilmProps = {
-  text: string
-  id: number
-  score: number
-  backdrop_path: string
-  poster_path: string
+  item: IFilms
 }
 
-const ItemFilm = ({ item }) => {
+const ItemFilm = ({ item }: ItemFilmProps) => {
   const { id, title, vote_average, backdrop_path, poster_path } = item
   const dispatch = useDispatch()
-  const isAuth = useSelector((state) => state.reducerAuth.isAuth)
-  const favoriteList = useSelector((state) => state.reducerData.favoriteList)
-  const seeLaterList = useSelector((state) => state.reducerData.seeLaterList)
+  const isAuth = useSelector((state: IRootState) => state.reducerAuth.isAuth)
+  const favoriteList: IFilms[] = useSelector((state: IRootState) => state.reducerData.favoriteList)
+  const seeLaterList: IFilms[] = useSelector((state: IRootState) => state.reducerData.seeLaterList)
   const isItemInFavoriteList = favoriteList.findIndex((film) => film.id === id) >= 0
   const isItemInSeeLaterList = seeLaterList.findIndex((film) => film.id === id) >= 0
 
