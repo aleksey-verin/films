@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { IFilms, setGenres } from '../redux/actions'
+import { useSelector } from 'react-redux'
+import { IFilms } from '../redux/actions'
 import { IRootState } from '../redux/redux'
-import { requestFilms, requestGenres } from '../server/request'
+// import { requestFilms, requestGenres } from '../server/request'
 import Filters from './Main/Filters'
 import Results from './Main/Results'
 
@@ -14,28 +14,27 @@ const defaultFiltersValue = {
 }
 
 const Main = () => {
-  console.log('render Main')
-
   const initialFilmsList = useSelector((state: IRootState) => state.reducerData.filmsData)
-  const initialFavoriteList = useSelector((state: IRootState) => state.reducerData.favoriteList)
-  const initialSeeLaterList = useSelector((state: IRootState) => state.reducerData.seeLaterList)
-  const genres = useSelector((state: IRootState) => state.reducerData.genresData)
+  const initialFavoriteList = useSelector(
+    (state: IRootState) => state.reducerFavAndSee.favoriteList
+  )
+  const initialSeeLaterList = useSelector(
+    (state: IRootState) => state.reducerFavAndSee.seeLaterList
+  )
+  const genres = useSelector((state: IRootState) => state.reducerGenres.genresData)
 
-  const [filteredList, setFilteredList] = useState([])
+  const [filteredList, setFilteredList] = useState<IFilms[]>([])
   const [offset, setOffset] = useState(12)
 
   const pagination = 12
   const filteredListLength = filteredList.length
 
-  const [shownList, setShownList] = useState([])
+  const [shownList, setShownList] = useState<IFilms[]>([])
 
-  //==============
-
-  //================
   const [userFilmList, setUserFilmList] = useState(defaultFiltersValue.list)
   const [sorting, setSorting] = useState(defaultFiltersValue.sorting)
   const [filterYear, setFilterYear] = useState(defaultFiltersValue.filterYear)
-  const [filterGenres, setFilterGenres] = useState(defaultFiltersValue.filterGenres)
+  const [filterGenres, setFilterGenres] = useState<number[]>(defaultFiltersValue.filterGenres)
 
   const getUserFilmList = (listType: string) => {
     setUserFilmList(listType)
@@ -56,7 +55,6 @@ const Main = () => {
   }
 
   const resetAllFilters = () => {
-    console.log('reset')
     setUserFilmList(defaultFiltersValue.list)
     setSorting(defaultFiltersValue.sorting)
     setFilterYear(defaultFiltersValue.filterYear)
@@ -111,9 +109,10 @@ const Main = () => {
   }
 
   useEffect(() => {
-    console.log('useEffect calc')
     const userInitialFilmList = getInitialFilmData(userFilmList)
+    if (!userInitialFilmList) return
     const sortedData = getSortData(userInitialFilmList, sorting)
+    if (!sortedData) return
     const filteredData = getFilteredData(sortedData, filterYear, filterGenres)
     setFilteredList(filteredData)
   }, [sorting, filterYear, filterGenres, userFilmList])
@@ -144,8 +143,6 @@ const Main = () => {
   useEffect(() => {
     setShownList(filteredList.slice(offset - pagination, offset))
   }, [offset, filteredList])
-
-  console.log(filteredList)
 
   return (
     <main>

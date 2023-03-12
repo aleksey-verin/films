@@ -8,21 +8,22 @@ import Main from './components/Main'
 import PageFilm from './components/PageFilm'
 import { setGenres } from './redux/actions'
 import { IRootState } from './redux/redux'
-import { requestFilms, requestGenres } from './server/request'
+import { requestGenres } from './server/request'
 
 function App() {
   const dispatch = useDispatch()
   const isPopupOpen = useSelector((state: IRootState) => state.reducerPopup.isOpen)
-  console.log(isPopupOpen)
 
   const requestData = async () => {
-    const responseFilms = await requestFilms()
+    // const responseFilms = await requestFilms()
     const responseGenres = await requestGenres()
 
-    if (responseFilms && responseGenres) {
+    if (
+      // responseFilms &&
+      responseGenres
+    ) {
       // dispatch(setFilms(responseFilms))
       dispatch(setGenres(responseGenres))
-      // console.log(responseGenres)
     }
   }
   useEffect(() => {

@@ -21,8 +21,12 @@ const ItemFilm = ({ item }: ItemFilmProps) => {
   const { id, title, vote_average, backdrop_path, poster_path } = item
   const dispatch = useDispatch()
   const isAuth = useSelector((state: IRootState) => state.reducerAuth.isAuth)
-  const favoriteList: IFilms[] = useSelector((state: IRootState) => state.reducerData.favoriteList)
-  const seeLaterList: IFilms[] = useSelector((state: IRootState) => state.reducerData.seeLaterList)
+  const favoriteList: IFilms[] = useSelector(
+    (state: IRootState) => state.reducerFavAndSee.favoriteList
+  )
+  const seeLaterList: IFilms[] = useSelector(
+    (state: IRootState) => state.reducerFavAndSee.seeLaterList
+  )
   const isItemInFavoriteList = favoriteList.findIndex((film) => film.id === id) >= 0
   const isItemInSeeLaterList = seeLaterList.findIndex((film) => film.id === id) >= 0
 

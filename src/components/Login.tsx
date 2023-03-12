@@ -21,9 +21,7 @@ const Login = () => {
     if (checkLoginPass(loginValue, passValue)) {
       dispatch(setIsAuth(true))
       dispatch(setIsOpen(false))
-      console.log('good')
     } else {
-      console.log('bad')
       setPassValue(defaultInputValue)
     }
   }

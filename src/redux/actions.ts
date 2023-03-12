@@ -31,14 +31,14 @@ export interface IGenres {
   name: string
 }
 
-export const setFilms = (payload: IFilms) => {
+export const setFilms = (payload: IFilms[]) => {
   return {
     type: ACTIONS.SET_FILMS,
     payload
   }
 }
 
-export const setGenres = (payload: IGenres) => {
+export const setGenres = (payload: IGenres[]) => {
   return {
     type: ACTIONS.SET_GENRES,
     payload

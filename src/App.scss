@@ -213,10 +213,6 @@ main {
     justify-content: space-between;
     align-items: center;
     gap: 5px;
-    & svg path {
-      // fill: #767676;
-      // color: #646cff;
-    }
     &__score {
       flex: 1 0 auto;
     }
@@ -312,6 +308,7 @@ main {
     height: 100%;
     width: 300px;
     overflow: hidden;
+    border-radius: 10px;
     & img {
       object-fit: cover;
       width: 100%;
@@ -348,8 +345,6 @@ main {
     padding: 0 10px;
     &__title {
       flex: 0 1 30%;
-    }
-    &__text {
     }
   }
 }

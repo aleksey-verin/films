@@ -1,4 +1,4 @@
-export const mockData = [
+const mockData = [
   {
     adult: false,
     backdrop_path: '/qjGrUmKW78MCFG8PTLDBp67S27p.jpg',
@@ -4044,3 +4044,5 @@ export const mockData = [
     vote_count: 885
   }
 ]
+
+export default mockData

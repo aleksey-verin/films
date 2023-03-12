@@ -7,7 +7,7 @@ const PageFilm = () => {
   const { id } = useParams()
 
   const filmList = useSelector((state: IRootState) => state.reducerData.filmsData)
-  const genres = useSelector((state: IRootState) => state.reducerData.genresData)
+  const genres = useSelector((state: IRootState) => state.reducerGenres.genresData)
   const item = filmList.find((film) => film.id === Number(id))
 
   if (!item) return <Navigate to="/" />
@@ -27,14 +27,12 @@ const PageFilm = () => {
   const backgroundPath = `${url}${backdrop_path}`
   const imagePath = `${url}${poster_path}`
 
-  console.log(genre_ids)
-  console.log(genres)
   let genreView = ''
   if (genres.length && genre_ids.length) {
     const genresForFilm = genre_ids.map((filmGenre) => {
       return genres.find((item) => item.id === filmGenre)
     })
-    genreView = genresForFilm.map((item) => item.name).join(', ')
+    genreView = genresForFilm.map((item) => item?.name).join(', ') || ''
   }
 
   const styleBackground = {
@@ -81,18 +79,3 @@ const PageFilm = () => {
 }
 
 export default PageFilm
-
-// adult: false
-// backdrop_path: '/8NEvnVKeGMLEXG45MMNqxJLcM4y.jpg'
-// genre_ids: (3)[(28, 16, 14)]
-// id: 820232
-// original_language: 'ja'
-// original_title: '鬼滅の刃 兄妹の絆'
-// overview: 'Эпоха Тайсё. Ещё с древних времён ходят слухи, что в лесу обитают человекоподобные демоны, которые питаются людьми и выискивают по ночам новых жертв. Тандзиро Камадо — старший сын в семье, потерявший отца и взявший на себя заботу о родных. Однажды он уходит в соседний город, чтобы продать древесный уголь. Вернувшись утром, парень обнаруживает перед собой страшную картину: вся родня зверски убита, а единственная выжившая — младшая сестра Нэдзуко, обращённая в демона, но пока не потерявшая человечность. С этого момента начинается долгое и опасное путешествие Тандзиро и Нэдзуко, в котором мальчик намерен разыскать убийцу и узнать способ исцеления сестры.'
-// popularity: 156.044
-// poster_path: '/99cJLZkNoIFmufJ4yap6ZABl4nk.jpg'
-// release_date: '2019-03-29'
-// title: 'Клинок, рассекающий демонов: Узы брата и сестры'
-// video: false
-// vote_average: 8.7
-// vote_count: 35

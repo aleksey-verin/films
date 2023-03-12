@@ -1,7 +1,8 @@
+import { storage, storageGetItem } from '../../storage/storage'
 import { ACTIONS } from '../actions'
 
 const initialState: IInitialState = {
-  isAuth: JSON.parse(localStorage.getItem('project-isAuth')) || false
+  isAuth: storageGetItem(storage.isAuth) || false
 }
 
 type IInitialState = {

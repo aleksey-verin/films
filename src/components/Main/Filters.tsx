@@ -40,8 +40,6 @@ const Filters = ({
   userFilmList,
   getUserFilmList
 }: FiltersProps) => {
-  console.log('render Filters')
-
   const isAuth = useSelector((state: IRootState) => state.reducerAuth.isAuth)
 
   const currentPage = offset / pagination
@@ -54,13 +52,11 @@ const Filters = ({
 
   const handleSort = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const sortBasicType = e.target.value
-    console.log(sortBasicType)
     getSorting(sortBasicType)
   }
 
   const handleFilter = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const userFilterYear = e.target.value
-    console.log(userFilterYear)
     getFilterYear(userFilterYear)
   }
 

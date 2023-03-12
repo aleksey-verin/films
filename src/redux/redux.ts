@@ -2,11 +2,16 @@ import { combineReducers, createStore } from 'redux'
 import reducerData from './reducers/reducerData'
 import reducerAuth from './reducers/reducerAuth'
 import reducerPopup from './reducers/reducerPopup'
+import reducerFavAndSee from './reducers/reducerFavAndSee'
+import reducerGenres from './reducers/reducerGenres'
+import { storage, storageSetItem } from '../storage/storage'
 
 export const rootReducer = combineReducers({
   reducerData,
+  reducerGenres,
   reducerAuth,
-  reducerPopup
+  reducerPopup,
+  reducerFavAndSee
 })
 
 // const persistedState = localStorage.getItem('reduxState')
@@ -18,16 +23,9 @@ export const store = createStore(
   // persistedState
 )
 export type IRootState = ReturnType<typeof rootReducer>
-// export type State = ReturnType<typeof store.getState>;
-// export type State = ReturnType<typeof store.getState>;
+
 store.subscribe(() => {
-  localStorage.setItem(
-    'project-favoriteList',
-    JSON.stringify(store.getState().reducerData.favoriteList)
-  )
-  localStorage.setItem(
-    'project-seeLaterList',
-    JSON.stringify(store.getState().reducerData.seeLaterList)
-  )
-  localStorage.setItem('project-isAuth', JSON.stringify(store.getState().reducerAuth.isAuth))
+  storageSetItem(storage.favoriteList, store.getState().reducerFavAndSee.favoriteList)
+  storageSetItem(storage.seeLaterList, store.getState().reducerFavAndSee.seeLaterList)
+  storageSetItem(storage.isAuth, store.getState().reducerAuth.isAuth)
 })
