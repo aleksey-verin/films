@@ -3,18 +3,10 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  // gap: 15px;
   position: relative;
 }
 
-.wrapper {
-  max-width: 1227px;
-  padding: 0 15px;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  gap: 15px;
-}
 // =============== HEADER ================
 
 header {
@@ -25,6 +17,15 @@ header {
   justify-content: center;
 }
 
+.header-wrapper {
+  max-width: 1227px;
+  padding: 0 15px;
+  width: 100%;
+  height: 70px;
+  display: flex;
+  gap: 15px;
+}
+
 nav {
   width: 100%;
   display: flex;
@@ -33,7 +34,7 @@ nav {
 }
 
 .like-button {
-  padding: 0.4em 1.2em;
+  padding: 0.4em 1.2em 0.5em;
   border-radius: 8px;
   border: 1px solid transparent;
   font-size: 1em;
@@ -41,15 +42,11 @@ nav {
   font-family: inherit;
   background-color: #1a1a1a;
   cursor: pointer;
+  color: inherit;
   transition: border-color 0.25s;
   &:hover {
     border-color: #646cff;
-    & a {
-      color: #fff;
-    }
-  }
-  & a {
-    color: #fff;
+    color: white;
   }
   &:active {
     outline: 4px auto -webkit-focus-ring-color;
@@ -63,6 +60,16 @@ main {
   height: 100%;
   display: flex;
   justify-content: center;
+}
+
+.main-wrapper {
+  max-width: 1227px;
+  padding: 0 15px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  gap: 15px;
+  margin-top: 15px;
 }
 
 // =============== FILTERS ================
@@ -270,6 +277,83 @@ main {
     }
   }
 }
+// =============== SINGLE PAGE ================
+
+.single-page {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  // backdrop-filter: blur(10px);
+  // justify-content: center;
+}
+.description {
+  flex: 1 0 auto;
+  width: 100%;
+  &-blur {
+    backdrop-filter: blur(5px);
+    height: 100%;
+    width: 100%;
+    background-color: #000000a5;
+  }
+  &-content {
+    margin: 0 auto;
+    height: calc(100% - 30px);
+    // width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1227px;
+    padding: 15px;
+    // gap: 100px;
+  }
+  &-image {
+    height: 100%;
+    width: 300px;
+    overflow: hidden;
+    & img {
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+    }
+  }
+  &-text {
+    flex: 0 1 60%;
+    height: 100%;
+    padding: 0 10px;
+    &__title {
+      font-size: 32px;
+    }
+    &__score {
+      font-size: 18px;
+    }
+
+    &__description {
+      font-size: 18px;
+    }
+  }
+}
+
+.details {
+  flex: 0 1 50%;
+  width: 100%;
+  max-width: 900px;
+  padding: 15px;
+  &-item {
+    display: flex;
+    height: 50px;
+    align-items: center;
+    border-bottom: 1px solid #404040;
+    padding: 0 10px;
+    &__title {
+      flex: 0 1 30%;
+    }
+    &__text {
+    }
+  }
+}
+
 // =============== MODAL WINDOW ================
 
 .modal {
@@ -341,6 +425,12 @@ main {
   header {
     background-color: rgba(0, 0, 0, 0.13);
   }
+  .like-button {
+    background-color: #f9f9f9;
+    &:hover {
+      color: inherit;
+    }
+  }
   .filters {
     background-color: #e4e4e42c;
     border: solid 1px rgba(0, 0, 0, 0.1);
@@ -361,6 +451,11 @@ main {
       &:hover {
         background-color: #f3f3f3;
       }
+    }
+  }
+  .description {
+    &-blur {
+      background-color: #ffffffcc;
     }
   }
   .modal {

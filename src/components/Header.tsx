@@ -1,5 +1,6 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { setIsAuth, setIsOpen } from '../redux/actions'
 import { IRootState } from '../redux/redux'
 
@@ -14,13 +15,12 @@ const Header = () => {
 
   return (
     <header>
-      <div className="wrapper">
+      <div className="header-wrapper">
         <nav>
           <div className="menu">
-            {/* <div className="like-button">
-              <a href="#">Home</a>
-            </div> */}
-            <button>Home</button>
+            <Link className="like-button" to="/">
+              Home
+            </Link>
           </div>
           <div className="login">
             {isAuth ? (

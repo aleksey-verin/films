@@ -3,17 +3,7 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 15px;
   position: relative;
-}
-
-.wrapper {
-  max-width: 1227px;
-  padding: 0 15px;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  gap: 15px;
 }
 
 header {
@@ -24,6 +14,15 @@ header {
   justify-content: center;
 }
 
+.header-wrapper {
+  max-width: 1227px;
+  padding: 0 15px;
+  width: 100%;
+  height: 70px;
+  display: flex;
+  gap: 15px;
+}
+
 nav {
   width: 100%;
   display: flex;
@@ -32,7 +31,7 @@ nav {
 }
 
 .like-button {
-  padding: 0.4em 1.2em;
+  padding: 0.4em 1.2em 0.5em;
   border-radius: 8px;
   border: 1px solid transparent;
   font-size: 1em;
@@ -40,16 +39,12 @@ nav {
   font-family: inherit;
   background-color: #1a1a1a;
   cursor: pointer;
+  color: inherit;
   transition: border-color 0.25s;
 }
 .like-button:hover {
   border-color: #646cff;
-}
-.like-button:hover a {
-  color: #fff;
-}
-.like-button a {
-  color: #fff;
+  color: white;
 }
 .like-button:active {
   outline: 4px auto -webkit-focus-ring-color;
@@ -60,6 +55,16 @@ main {
   height: 100%;
   display: flex;
   justify-content: center;
+}
+
+.main-wrapper {
+  max-width: 1227px;
+  padding: 0 15px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  gap: 15px;
+  margin-top: 15px;
 }
 
 .filters {
@@ -237,6 +242,76 @@ main {
   background-color: #232323;
 }
 
+.single-page {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.description {
+  flex: 1 0 auto;
+  width: 100%;
+}
+.description-blur {
+  -webkit-backdrop-filter: blur(5px);
+          backdrop-filter: blur(5px);
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.6470588235);
+}
+.description-content {
+  margin: 0 auto;
+  height: calc(100% - 30px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1227px;
+  padding: 15px;
+}
+.description-image {
+  height: 100%;
+  width: 300px;
+  overflow: hidden;
+}
+.description-image img {
+  -o-object-fit: cover;
+     object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+.description-text {
+  flex: 0 1 60%;
+  height: 100%;
+  padding: 0 10px;
+}
+.description-text__title {
+  font-size: 32px;
+}
+.description-text__score {
+  font-size: 18px;
+}
+.description-text__description {
+  font-size: 18px;
+}
+
+.details {
+  flex: 0 1 50%;
+  width: 100%;
+  max-width: 900px;
+  padding: 15px;
+}
+.details-item {
+  display: flex;
+  height: 50px;
+  align-items: center;
+  border-bottom: 1px solid #404040;
+  padding: 0 10px;
+}
+.details-item__title {
+  flex: 0 1 30%;
+}
 .modal {
   position: fixed;
   width: 100%;
@@ -301,6 +376,12 @@ main {
   header {
     background-color: rgba(0, 0, 0, 0.13);
   }
+  .like-button {
+    background-color: #f9f9f9;
+  }
+  .like-button:hover {
+    color: inherit;
+  }
   .filters {
     background-color: rgba(228, 228, 228, 0.1725490196);
     border: solid 1px rgba(0, 0, 0, 0.1);
@@ -320,6 +401,9 @@ main {
   }
   .film-details:hover {
     background-color: #f3f3f3;
+  }
+  .description-blur {
+    background-color: rgba(255, 255, 255, 0.8);
   }
   .modal-window {
     background-color: #fff;

@@ -1,5 +1,6 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 import {
   addFavorite,
   addSeeLater,
@@ -29,7 +30,6 @@ const ItemFilm = ({ item }: ItemFilmProps) => {
 
   const imagePath = poster_path || backdrop_path
   const url = `https://image.tmdb.org/t/p/w500/${imagePath}`
-  // console.log(url)
 
   const handleFavorite = () => {
     if (isAuth) {
@@ -47,7 +47,6 @@ const ItemFilm = ({ item }: ItemFilmProps) => {
     }
   }
 
-  console.log(favoriteList)
   return (
     <div className="results-item">
       <div className="results-item__image">
@@ -60,7 +59,6 @@ const ItemFilm = ({ item }: ItemFilmProps) => {
             onClick={handleFavorite}
             className={`film-actions__favorite ${isItemInFavoriteList ? 'checked' : null}`}>
             <ImgFavorite />
-            {/* <ImgFavoriteGold /> */}
           </div>
           <div
             onClick={handleBookmark}
@@ -69,7 +67,9 @@ const ItemFilm = ({ item }: ItemFilmProps) => {
           </div>
         </div>
         <div className="film-text">{viewText}</div>
-        <div className="film-details">Подробнее</div>
+        <div className="film-details">
+          <Link to={`films/${id}`}>Подробнее</Link>
+        </div>
       </div>
     </div>
   )

@@ -1,6 +1,6 @@
 export const requestFilms = async () => {
   try {
-    const responseList = await fetch('./list.json')
+    const responseList = await fetch('/list.json')
     if (responseList.ok) {
       const dataFilms = await responseList.json()
       return dataFilms
@@ -12,7 +12,7 @@ export const requestFilms = async () => {
 
 export const requestGenres = async () => {
   try {
-    const responseList = await fetch('./genres.json')
+    const responseList = await fetch('/genres.json')
     if (responseList.ok) {
       const dataGenres = await responseList.json()
       return dataGenres

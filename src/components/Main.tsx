@@ -15,7 +15,7 @@ const defaultFiltersValue = {
 
 const Main = () => {
   console.log('render Main')
-  const dispatch = useDispatch()
+
   const initialFilmsList = useSelector((state: IRootState) => state.reducerData.filmsData)
   const initialFavoriteList = useSelector((state: IRootState) => state.reducerData.favoriteList)
   const initialSeeLaterList = useSelector((state: IRootState) => state.reducerData.seeLaterList)
@@ -30,20 +30,6 @@ const Main = () => {
   const [shownList, setShownList] = useState([])
 
   //==============
-  const requestData = async () => {
-    const responseFilms = await requestFilms()
-    const responseGenres = await requestGenres()
-
-    if (responseFilms && responseGenres) {
-      // dispatch(setFilms(responseFilms))
-      dispatch(setGenres(responseGenres))
-    }
-  }
-  useEffect(() => {
-    return () => {
-      requestData()
-    }
-  }, [])
 
   //================
   const [userFilmList, setUserFilmList] = useState(defaultFiltersValue.list)
@@ -163,7 +149,7 @@ const Main = () => {
 
   return (
     <main>
-      <div className="wrapper">
+      <div className="main-wrapper">
         <Filters
           genres={genres}
           offset={offset}
