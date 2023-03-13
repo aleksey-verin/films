@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { IFilms } from '../redux/actions'
 import { IRootState } from '../redux/redux'
-// import { requestFilms, requestGenres } from '../server/request'
 import Filters from './Main/Filters'
 import Results from './Main/Results'
 

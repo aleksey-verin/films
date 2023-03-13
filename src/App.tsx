@@ -6,6 +6,7 @@ import Header from './components/Header'
 import Login from './components/Login'
 import Main from './components/Main'
 import PageFilm from './components/PageFilm'
+import Search from './components/Search'
 import { setGenres } from './redux/actions'
 import { IRootState } from './redux/redux'
 import { requestGenres } from './server/request'
@@ -39,8 +40,8 @@ function App() {
         {isPopupOpen ? <Login /> : null}
         <Routes>
           <Route element={<Main />} path="/" />
+          <Route element={<Search />} path="/search" />
           <Route element={<PageFilm />} path="films/:id" />
-          {/* <PageFilm /> */}
           <Route path="*" element={<Navigate replace to="/" />} />
         </Routes>
       </BrowserRouter>

@@ -48,16 +48,19 @@ const Filters = ({
   const handleFilmList = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const filmList = e.target.value
     getUserFilmList(filmList)
+    resetOffset()
   }
 
   const handleSort = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const sortBasicType = e.target.value
     getSorting(sortBasicType)
+    resetOffset()
   }
 
   const handleFilter = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const userFilterYear = e.target.value
     getFilterYear(userFilterYear)
+    resetOffset()
   }
 
   const handleGenres = (e: React.ChangeEvent<HTMLInputElement>) => {

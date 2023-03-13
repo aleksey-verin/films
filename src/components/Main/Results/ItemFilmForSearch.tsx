@@ -1,28 +1,27 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
 import {
   addFavorite,
   addSeeLater,
   IFilms,
+  IGenres,
   removeFavorite,
   removeSeeLater,
   setIsOpen
 } from '../../../redux/actions'
 import { IRootState } from '../../../redux/redux'
 import ImgBookmark from '../../Images/ImgBookmark'
-// import ImgFavorite from '../../Images/ImgFavorite'
-// import ImgFavoriteGoldFull from '../../Images/ImgFavoriteGoldFull'
 import ImgFavoriteGold from '../../Images/ImgFavoriteGold'
 
-type ItemFilmProps = {
+type ItemFilmForSearchProps = {
   item: IFilms
 }
 
-const ItemFilm = ({ item }: ItemFilmProps) => {
-  const { id, title, vote_average, backdrop_path, poster_path } = item
+const ItemFilmForSearch = ({ item }: ItemFilmForSearchProps) => {
+  const { id, title, vote_average, backdrop_path, poster_path, overview, genre_ids } = item
   const dispatch = useDispatch()
   const isAuth = useSelector((state: IRootState) => state.reducerAuth.isAuth)
+  const genres = useSelector((state: IRootState) => state.reducerGenres.genresData)
   const favoriteList: IFilms[] = useSelector(
     (state: IRootState) => state.reducerFavAndSee.favoriteList
   )
@@ -60,32 +59,43 @@ const ItemFilm = ({ item }: ItemFilmProps) => {
     backgroundSize: 'cover'
   }
 
+  const genresForView = (genresList: IGenres[], genresItem: number[]) => {
+    let genreView = ''
+    if (genresList.length && genresItem.length) {
+      const genresForFilm = genresItem.map((filmGenre) => {
+        return genresList.find((item) => item.id === filmGenre)
+      })
+      genreView = genresForFilm.map((item) => item?.name).join(', ')
+    }
+    return genreView
+  }
+
   return (
-    <div className="results-item">
-      <div style={styleImage} className="results-item__image">
-        {/* <img src={url} alt="film" /> */}
-      </div>
-      <div className="results-item__info film">
-        <div className="film-actions">
-          <div className="film-actions__score">Рейтинг: {vote_average.toFixed(1)}</div>
+    <div className="search-item">
+      <div style={styleImage} className="search-item__image"></div>
+      <div className="search-item__info movie">
+        <div className="movie-actions">
+          <div className="movie-actions__score">Рейтинг: {vote_average.toFixed(1)}</div>
+          <div className="movie-actions__genres">{`Жанры: ${genresForView(
+            genres,
+            genre_ids
+          )}`}</div>
           <div
             onClick={handleFavorite}
-            className={`film-actions__favorite ${isItemInFavoriteList ? 'checked' : null}`}>
+            className={`movie-actions__favorite ${isItemInFavoriteList ? 'checked' : null}`}>
             <ImgFavoriteGold />
           </div>
           <div
             onClick={handleBookmark}
-            className={`film-actions__bookmark ${isItemInSeeLaterList ? 'checked' : null}`}>
+            className={`movie-actions__bookmark ${isItemInSeeLaterList ? 'checked' : null}`}>
             <ImgBookmark />
           </div>
         </div>
-        <div className="film-text">{viewText}</div>
-        <Link className="film-details" to={`/films/${id}`}>
-          Подробнее
-        </Link>
+        <div className="movie-text">{viewText}</div>
+        <div className="movie-details">{overview}</div>
       </div>
     </div>
   )
 }
 
-export default ItemFilm
+export default ItemFilmForSearch

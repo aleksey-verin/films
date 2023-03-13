@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import { setIsAuth, setIsOpen } from '../redux/actions'
 import { IRootState } from '../redux/redux'
 
@@ -17,9 +17,12 @@ const Header = () => {
       <div className="header-wrapper">
         <nav>
           <div className="menu">
-            <Link className="like-button" to="/">
-              Home
-            </Link>
+            <NavLink className="like-button" to="/">
+              Главная
+            </NavLink>
+            <NavLink className="like-button" to="/search">
+              Поиск фильма
+            </NavLink>
           </div>
           <div className="login">
             {isAuth ? (

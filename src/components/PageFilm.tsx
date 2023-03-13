@@ -1,6 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { Navigate, useParams } from 'react-router-dom'
+import { IGenres } from '../redux/actions'
 import { IRootState } from '../redux/redux'
 
 const PageFilm = () => {
@@ -27,16 +28,26 @@ const PageFilm = () => {
   const backgroundPath = `${url}${backdrop_path}`
   const imagePath = `${url}${poster_path}`
 
-  let genreView = ''
-  if (genres.length && genre_ids.length) {
-    const genresForFilm = genre_ids.map((filmGenre) => {
-      return genres.find((item) => item.id === filmGenre)
-    })
-    genreView = genresForFilm.map((item) => item?.name).join(', ') || ''
+  const genresForView = (genresList: IGenres[], genresItem: number[]) => {
+    let genreView = ''
+    if (genresList.length && genresItem.length) {
+      const genresForFilm = genresItem.map((filmGenre) => {
+        return genresList.find((item) => item.id === filmGenre)
+      })
+      genreView = genresForFilm.map((item) => item?.name).join(', ')
+    }
+    return genreView
   }
 
   const styleBackground = {
     backgroundImage: `url(${backgroundPath})`,
+    backgroundPosition: '50%',
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'cover'
+  }
+
+  const styleImage = {
+    backgroundImage: `url(${imagePath})`,
     backgroundPosition: '50%',
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover'
@@ -47,8 +58,8 @@ const PageFilm = () => {
       <div style={styleBackground} className="description">
         <div className="description-blur">
           <div className="description-content">
-            <div className="description-image">
-              <img src={imagePath} alt="" />
+            <div style={styleImage} className="description-image">
+              {/* <img src={imagePath} alt="" /> */}
             </div>
             <div className="description-text">
               <h2 className="description-text__title">{title}</h2>
@@ -71,7 +82,7 @@ const PageFilm = () => {
         </div>
         <div className="details-item">
           <div className="details-item__title">Жанры:</div>
-          <div className="details-item__text">{genreView}</div>
+          <div className="details-item__text">{genresForView(genres, genre_ids)}</div>
         </div>
       </div>
     </div>
