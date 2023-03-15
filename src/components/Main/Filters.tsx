@@ -4,7 +4,6 @@ import { IGenres } from '../../redux/actions'
 import { IRootState } from '../../redux/redux'
 
 type FiltersProps = {
-  genres: IGenres[]
   offset: number
   decreaseOffset: () => void
   increaseOffset: () => void
@@ -22,8 +21,14 @@ type FiltersProps = {
   getUserFilmList: (listType: string) => void
 }
 
+// const sortingValues = [
+//   {value: 'popularDescending', name: 'Популярные по убыванию'},
+//   {value: 'popularAscending', name: 'Популярные по возрастанию'},
+//   {value: 'voteDescending', name: 'Рейтинг по убыванию'},
+//   {value: 'voteAscending', name: 'Рейтинг по возрастанию'},
+// ]
+
 const Filters = ({
-  genres,
   offset,
   decreaseOffset,
   increaseOffset,
@@ -41,6 +46,7 @@ const Filters = ({
   getUserFilmList
 }: FiltersProps) => {
   const isAuth = useSelector((state: IRootState) => state.reducerAuth.isAuth)
+  const genres = useSelector((state: IRootState) => state.reducerGenres.genresData)
 
   const currentPage = offset / pagination
   const amountOfPages = Math.ceil(filteredListLength / pagination)
@@ -149,7 +155,9 @@ const Filters = ({
             </button>
           </div>
         </div>
-        <div className="filters-pagination__info">{`${currentPage} of ${amountOfPages}`}</div>
+        <div className="filters-pagination__info">{`${currentPage} of ${
+          amountOfPages ? amountOfPages : '1'
+        }`}</div>
       </div>
     </div>
   )

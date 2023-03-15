@@ -10,11 +10,13 @@ const Results = ({ shownList }: ResultsProps) => {
   // const { id, } = filmsList
   return (
     <div className="results">
-      {shownList
-        ? shownList.map((item) => {
-            return <ItemFilm key={item.id} item={item} />
-          })
-        : null}
+      {shownList.length ? (
+        shownList.map((item) => {
+          return <ItemFilm key={item.id} item={item} />
+        })
+      ) : (
+        <div>Нет подходящих фильмов..</div>
+      )}
     </div>
   )
 }

@@ -20,13 +20,12 @@ const Main = () => {
   const initialSeeLaterList = useSelector(
     (state: IRootState) => state.reducerFavAndSee.seeLaterList
   )
-  const genres = useSelector((state: IRootState) => state.reducerGenres.genresData)
 
   const [filteredList, setFilteredList] = useState<IFilms[]>([])
-  const [offset, setOffset] = useState(12)
 
   const pagination = 12
   const filteredListLength = filteredList.length
+  const [offset, setOffset] = useState(pagination)
 
   const [shownList, setShownList] = useState<IFilms[]>([])
 
@@ -147,7 +146,6 @@ const Main = () => {
     <main>
       <div className="main-wrapper">
         <Filters
-          genres={genres}
           offset={offset}
           decreaseOffset={decreaseOffset}
           increaseOffset={increaseOffset}
