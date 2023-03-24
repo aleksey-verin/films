@@ -1,8 +1,9 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, NavLink } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { setIsAuth, setIsOpen } from '../redux/actions'
 import { IRootState } from '../redux/redux'
+import { RouteNames } from '../routes/routes'
 
 const Header = () => {
   const dispatch = useDispatch()
@@ -17,10 +18,10 @@ const Header = () => {
       <div className="header-wrapper">
         <nav>
           <div className="menu">
-            <NavLink className="like-button" to="/">
+            <NavLink className="like-button" to={RouteNames.MAIN}>
               Главная
             </NavLink>
-            <NavLink className="like-button" to="/search">
+            <NavLink className="like-button" to={RouteNames.SEARCH}>
               Поиск фильма
             </NavLink>
           </div>

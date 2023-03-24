@@ -178,7 +178,7 @@ const Search = () => {
                 </div>
                 <div className="question-variants">
                   <button className="question-variants__item">
-                    <Link to={`/films/${filteredList[filmCounter].id}`}>Подходит</Link>
+                    <Link to={`/films-build/films/${filteredList[filmCounter].id}`}>Подходит</Link>
                   </button>
                   <button onClick={handleFilmCounter} className="question-variants__item">
                     Не подходит

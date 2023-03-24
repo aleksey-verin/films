@@ -80,7 +80,7 @@ const ItemFilm = ({ item }: ItemFilmProps) => {
           </div>
         </div>
         <div className="film-text">{viewText}</div>
-        <Link className="film-details" to={`/films/${id}`}>
+        <Link className="film-details" to={`films/${id}`}>
           Подробнее
         </Link>
       </div>

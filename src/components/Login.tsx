@@ -5,7 +5,7 @@ import ImgClose from './Images/ImgClose'
 // import ImgClose from './Images/ImgClose'
 
 const checkLoginPass = (login: string, password: string) => {
-  const successCombination = { login: 'verevaa@yandex.ru', password: '1212' }
+  const successCombination = { login: 'test@test.com', password: '123' }
   return login === successCombination.login && password === successCombination.password
 }
 

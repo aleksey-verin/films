@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import React from 'react'
+import { useSelector } from 'react-redux'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import './App.css'
 import Header from './components/Header'
@@ -7,31 +7,11 @@ import Login from './components/Login'
 import Main from './components/Main'
 import PageFilm from './components/PageFilm'
 import Search from './components/Search'
-import { setGenres } from './redux/actions'
 import { IRootState } from './redux/redux'
-import { requestGenres } from './server/request'
+import { RouteNames } from './routes/routes'
 
 function App() {
-  const dispatch = useDispatch()
   const isPopupOpen = useSelector((state: IRootState) => state.reducerPopup.isOpen)
-
-  const requestData = async () => {
-    // const responseFilms = await requestFilms()
-    const responseGenres = await requestGenres()
-
-    if (
-      // responseFilms &&
-      responseGenres
-    ) {
-      // dispatch(setFilms(responseFilms))
-      dispatch(setGenres(responseGenres))
-    }
-  }
-  useEffect(() => {
-    return () => {
-      requestData()
-    }
-  }, [])
 
   return (
     <div className="App">
@@ -39,10 +19,10 @@ function App() {
         <Header />
         {isPopupOpen ? <Login /> : null}
         <Routes>
-          <Route element={<Main />} path="/" />
-          <Route element={<Search />} path="/search" />
-          <Route element={<PageFilm />} path="films/:id" />
-          <Route path="*" element={<Navigate replace to="/" />} />
+          <Route element={<Main />} path={RouteNames.MAIN} />
+          <Route element={<Search />} path={RouteNames.SEARCH} />
+          <Route element={<PageFilm />} path={RouteNames.FILMS} />
+          <Route path="*" element={<Navigate replace to={RouteNames.MAIN} />} />
         </Routes>
       </BrowserRouter>
     </div>
