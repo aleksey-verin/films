@@ -21,7 +21,7 @@ function App() {
         <Routes>
           <Route element={<Main />} path={RouteNames.MAIN} />
           <Route element={<Search />} path={RouteNames.SEARCH} />
-          <Route element={<PageFilm />} path={RouteNames.FILMS} />
+          <Route element={<PageFilm />} path={`${RouteNames.FILMS}:id`} />
           <Route path="*" element={<Navigate replace to={RouteNames.MAIN} />} />
         </Routes>
       </BrowserRouter>

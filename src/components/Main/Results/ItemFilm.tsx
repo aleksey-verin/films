@@ -10,6 +10,7 @@ import {
   setIsOpen
 } from '../../../redux/actions'
 import { IRootState } from '../../../redux/redux'
+import { RouteNames } from '../../../routes/routes'
 import ImgBookmark from '../../Images/ImgBookmark'
 // import ImgFavorite from '../../Images/ImgFavorite'
 // import ImgFavoriteGoldFull from '../../Images/ImgFavoriteGoldFull'
@@ -80,7 +81,7 @@ const ItemFilm = ({ item }: ItemFilmProps) => {
           </div>
         </div>
         <div className="film-text">{viewText}</div>
-        <Link className="film-details" to={`films/${id}`}>
+        <Link className="film-details" to={`${RouteNames.FILMS}${id}`}>
           Подробнее
         </Link>
       </div>

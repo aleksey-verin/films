@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { IFilms, IGenres } from '../redux/actions'
 import { IRootState } from '../redux/redux'
+import { RouteNames } from '../routes/routes'
 import ItemFilmForSearch from './Main/Results/ItemFilmForSearch'
 
 const userView = {
@@ -89,9 +90,7 @@ const Search = () => {
       setFilmCounter(filmCounter + 1)
     } else {
       setEndOfFilteredList(true)
-      console.log('end')
     }
-    console.log(filmCounter, numberOfFilms)
   }
 
   const handleEndOfFilteredList = () => {
@@ -109,7 +108,6 @@ const Search = () => {
     setNumberOfFilms(filteredList.length)
   }, [filteredList])
 
-  console.log(filteredList)
 
   return (
     <div className="search">
@@ -178,7 +176,7 @@ const Search = () => {
                 </div>
                 <div className="question-variants">
                   <button className="question-variants__item">
-                    <Link to={`/films-build/films/${filteredList[filmCounter].id}`}>Подходит</Link>
+                    <Link to={`${RouteNames.FILMS}${filteredList[filmCounter].id}`}>Подходит</Link>
                   </button>
                   <button onClick={handleFilmCounter} className="question-variants__item">
                     Не подходит
