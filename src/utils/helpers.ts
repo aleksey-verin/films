@@ -1,4 +1,4 @@
-import { IGenres } from '../store/actions'
+import { IGenres } from '../types/types'
 
 export const transformGenresIntoString = (genresList: IGenres[], genresItem: number[]): string => {
   if (genresList.length && genresItem.length) {
