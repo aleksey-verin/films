@@ -1,8 +1,8 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
-import { setIsAuth, setIsOpen } from '../redux/actions'
-import { IRootState } from '../redux/redux'
+import { setIsAuth, setIsOpen } from '../store/actions'
+import { IRootState } from '../store/store'
 import { RouteNames } from '../routes/routes'
 
 const Header = () => {

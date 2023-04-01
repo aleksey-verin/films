@@ -1,5 +1,5 @@
 import React from 'react'
-import { IFilms } from '../../redux/actions'
+import { IFilms } from '../../store/actions'
 import ItemFilm from './Results/ItemFilm'
 
 type ResultsProps = {

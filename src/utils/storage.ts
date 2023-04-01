@@ -1,5 +1,3 @@
-import { IFilms } from '../redux/actions'
-
 export const storage = {
   favoriteList: 'project-favoriteList',
   seeLaterList: 'project-seeLaterList',
@@ -17,7 +15,7 @@ export const storageGetItem = (storageItem: string) => {
   }
 }
 
-export const storageSetItem = (storageItem: string, value: boolean | IFilms[]) => {
+export const storageSetItem = (storageItem: string, value: unknown) => {
   try {
     localStorage.setItem(storageItem, JSON.stringify(value))
   } catch (error) {

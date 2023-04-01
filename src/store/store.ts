@@ -4,7 +4,8 @@ import reducerAuth from './reducers/reducerAuth'
 import reducerPopup from './reducers/reducerPopup'
 import reducerFavAndSee from './reducers/reducerFavAndSee'
 import reducerGenres from './reducers/reducerGenres'
-import { storage, storageSetItem } from '../storage/storage'
+import { storage, storageSetItem } from '../utils/storage'
+import { composeWithDevTools } from 'redux-devtools-extension'
 
 export const rootReducer = combineReducers({
   reducerData,
@@ -14,14 +15,7 @@ export const rootReducer = combineReducers({
   reducerFavAndSee
 })
 
-// const persistedState = localStorage.getItem('reduxState')
-//   ? JSON.parse(localStorage.getItem('reduxState'))
-//   : {}
-
-export const store = createStore(
-  rootReducer
-  // persistedState
-)
+export const store = createStore(rootReducer, composeWithDevTools())
 export type IRootState = ReturnType<typeof rootReducer>
 
 store.subscribe(() => {

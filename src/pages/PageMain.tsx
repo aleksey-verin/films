@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { IFilms } from '../redux/actions'
-import { IRootState } from '../redux/redux'
-import Filters from './Main/Filters'
-import Results from './Main/Results'
+import { IFilms } from '../store/actions'
+import { IRootState } from '../store/store'
+import Filters from '../components/Main/Filters'
+import Results from '../components/Main/Results'
 
 const defaultFiltersValue = {
   list: 'allFilms',
@@ -12,7 +12,7 @@ const defaultFiltersValue = {
   filterGenres: []
 }
 
-const Main = () => {
+const PageMain = () => {
   const initialFilmsList = useSelector((state: IRootState) => state.reducerData.filmsData)
   const initialFavoriteList = useSelector(
     (state: IRootState) => state.reducerFavAndSee.favoriteList
@@ -168,4 +168,4 @@ const Main = () => {
   )
 }
 
-export default Main
+export default PageMain

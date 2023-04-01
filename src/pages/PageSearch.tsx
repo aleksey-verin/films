@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { IFilms, IGenres } from '../redux/actions'
-import { IRootState } from '../redux/redux'
+import { IFilms, IGenres } from '../store/actions'
+import { IRootState } from '../store/store'
 import { RouteNames } from '../routes/routes'
-import ItemFilmForSearch from './Main/Results/ItemFilmForSearch'
+import ItemFilmForSearch from '../components/Search/ItemFilmForSearch'
+// import ItemFilmForSearch from './Main/Results/ItemFilmForSearch'
 
 const userView = {
   question1: 'question1',
@@ -18,7 +19,7 @@ const userAnswer = {
   low: 'low'
 }
 
-const Search = () => {
+const PageSearch = () => {
   const initialFilmsList = useSelector((state: IRootState) => state.reducerData.filmsData)
   const genres = useSelector((state: IRootState) => state.reducerGenres.genresData)
   if (!genres || !initialFilmsList) return <div>Не удалось загрузить данные с сервера</div>
@@ -107,7 +108,6 @@ const Search = () => {
     if (!filteredList) return
     setNumberOfFilms(filteredList.length)
   }, [filteredList])
-
 
   return (
     <div className="search">
@@ -200,4 +200,4 @@ const Search = () => {
   )
 }
 
-export default Search
+export default PageSearch

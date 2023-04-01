@@ -1,4 +1,4 @@
-import { storage, storageGetItem } from '../../storage/storage'
+import { storage, storageGetItem } from '../../utils/storage'
 import { ACTIONS } from '../actions'
 
 const initialState: IInitialState = {

@@ -1,28 +1,26 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { setIsAuth, setIsOpen } from '../redux/actions'
-import ImgClose from './Images/ImgClose'
-// import ImgClose from './Images/ImgClose'
+import { setIsAuth, setIsOpen } from '../store/actions'
+import ImgClose from './ImagesComponents/ImgClose'
+import { checkUsersLogs } from '../utils/checkUser'
 
-const checkLoginPass = (login: string, password: string) => {
-  const successCombination = { login: 'test@test.com', password: '123' }
-  return login === successCombination.login && password === successCombination.password
-}
-
-const Login = () => {
+const PageLogin = () => {
   const dispatch = useDispatch()
 
   const defaultInputValue = ''
   const [loginValue, setLoginValue] = useState(defaultInputValue)
   const [passValue, setPassValue] = useState(defaultInputValue)
+  const [wrongData, setWrongData] = useState(false)
 
   const handleForm = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault()
-    if (checkLoginPass(loginValue, passValue)) {
+    if (checkUsersLogs(loginValue, passValue)) {
+      setWrongData(false)
       dispatch(setIsAuth(true))
       dispatch(setIsOpen(false))
     } else {
       setPassValue(defaultInputValue)
+      setWrongData(true)
     }
   }
 
@@ -37,14 +35,17 @@ const Login = () => {
             placeholder="логин.."
             type="email"
             value={loginValue}
+            autoComplete="false"
           />
           <input
             onChange={(e) => setPassValue(e.target.value)}
             placeholder="пароль.."
             type="password"
             value={passValue}
+            autoComplete="false"
           />
           <button type="submit">Войти!</button>
+          {wrongData && <div style={{ color: 'red' }}>Неверный логин или пароль!</div>}
         </form>
         <div onClick={() => dispatch(setIsOpen(false))} className="modal-window__close">
           <ImgClose />
@@ -54,4 +55,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default PageLogin

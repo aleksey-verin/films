@@ -4,10 +4,10 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import './App.css'
 import Header from './components/Header'
 import Login from './components/Login'
-import Main from './components/Main'
-import PageFilm from './components/PageFilm'
-import Search from './components/Search'
-import { IRootState } from './redux/redux'
+import PageMain from './pages/PageMain'
+import PageFilm from './pages/PageFilm'
+import PageSearch from './pages/PageSearch'
+import { IRootState } from './store/store'
 import { RouteNames } from './routes/routes'
 
 function App() {
@@ -19,8 +19,8 @@ function App() {
         <Header />
         {isPopupOpen ? <Login /> : null}
         <Routes>
-          <Route element={<Main />} path={RouteNames.MAIN} />
-          <Route element={<Search />} path={RouteNames.SEARCH} />
+          <Route element={<PageMain />} path={RouteNames.MAIN} />
+          <Route element={<PageSearch />} path={RouteNames.SEARCH} />
           <Route element={<PageFilm />} path={`${RouteNames.FILMS}:id`} />
           <Route path="*" element={<Navigate replace to={RouteNames.MAIN} />} />
         </Routes>

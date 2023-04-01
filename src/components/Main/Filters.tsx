@@ -1,7 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { IGenres } from '../../redux/actions'
-import { IRootState } from '../../redux/redux'
+import { IGenres } from '../../store/actions'
+import { IRootState } from '../../store/store'
 
 type FiltersProps = {
   offset: number

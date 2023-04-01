@@ -8,10 +8,10 @@ import {
   removeFavorite,
   removeSeeLater,
   setIsOpen
-} from '../../../redux/actions'
-import { IRootState } from '../../../redux/redux'
-import ImgBookmark from '../../Images/ImgBookmark'
-import ImgFavoriteGold from '../../Images/ImgFavoriteGold'
+} from '../../store/actions'
+import { IRootState } from '../../store/store'
+import ImgBookmark from '../ImagesComponents/ImgBookmark'
+import ImgFavoriteGold from '../ImagesComponents/ImgFavoriteGold'
 
 type ItemFilmForSearchProps = {
   item: IFilms
@@ -53,10 +53,7 @@ const ItemFilmForSearch = ({ item }: ItemFilmForSearchProps) => {
   }
 
   const styleImage = {
-    backgroundImage: `url(${url})`,
-    backgroundPosition: '50%',
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: 'cover'
+    backgroundImage: `url(${url})`
   }
 
   const genresForView = (genresList: IGenres[], genresItem: number[]) => {

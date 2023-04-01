@@ -8,13 +8,11 @@ import {
   removeFavorite,
   removeSeeLater,
   setIsOpen
-} from '../../../redux/actions'
-import { IRootState } from '../../../redux/redux'
+} from '../../../store/actions'
+import { IRootState } from '../../../store/store'
 import { RouteNames } from '../../../routes/routes'
-import ImgBookmark from '../../Images/ImgBookmark'
-// import ImgFavorite from '../../Images/ImgFavorite'
-// import ImgFavoriteGoldFull from '../../Images/ImgFavoriteGoldFull'
-import ImgFavoriteGold from '../../Images/ImgFavoriteGold'
+import ImgBookmark from '../../ImagesComponents/ImgBookmark'
+import ImgFavoriteGold from '../../ImagesComponents/ImgFavoriteGold'
 
 type ItemFilmProps = {
   item: IFilms
@@ -55,17 +53,12 @@ const ItemFilm = ({ item }: ItemFilmProps) => {
   }
 
   const styleImage = {
-    backgroundImage: `url(${url})`,
-    backgroundPosition: '50%',
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: 'cover'
+    backgroundImage: `url(${url})`
   }
 
   return (
     <div className="results-item">
-      <div style={styleImage} className="results-item__image">
-        {/* <img src={url} alt="film" /> */}
-      </div>
+      <div style={styleImage} className="results-item__image"></div>
       <div className="results-item__info film">
         <div className="film-actions">
           <div className="film-actions__score">Рейтинг: {vote_average.toFixed(1)}</div>
