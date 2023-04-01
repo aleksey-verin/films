@@ -1,13 +1,11 @@
 import React from 'react'
-import { IFilms } from '../../store/actions'
 import ItemFilm from './Results/ItemFilm'
+import { useSelector } from 'react-redux'
+import { selectorReducerPagination } from '../../store/reducers/reducerPagination'
 
-type ResultsProps = {
-  shownList: IFilms[]
-}
+const Results = () => {
+  const { shownList } = useSelector(selectorReducerPagination)
 
-const Results = ({ shownList }: ResultsProps) => {
-  // const { id, } = filmsList
   return (
     <div className="results">
       {shownList.length ? (

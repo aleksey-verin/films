@@ -3,8 +3,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import {
   addFavorite,
   addSeeLater,
-  IFilms,
-  IGenres,
   removeFavorite,
   removeSeeLater,
   setIsOpen
@@ -12,6 +10,7 @@ import {
 import { IRootState } from '../../store/store'
 import ImgBookmark from '../ImagesComponents/ImgBookmark'
 import ImgFavoriteGold from '../ImagesComponents/ImgFavoriteGold'
+import { IFilms, IGenres } from '../../types/types'
 
 type ItemFilmForSearchProps = {
   item: IFilms

@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom'
 import {
   addFavorite,
   addSeeLater,
-  IFilms,
   removeFavorite,
   removeSeeLater,
   setIsOpen
@@ -13,6 +12,7 @@ import { IRootState } from '../../../store/store'
 import { RouteNames } from '../../../routes/routes'
 import ImgBookmark from '../../ImagesComponents/ImgBookmark'
 import ImgFavoriteGold from '../../ImagesComponents/ImgFavoriteGold'
+import { IFilms } from '../../../types/types'
 
 type ItemFilmProps = {
   item: IFilms

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { IFilms, IGenres } from '../store/actions'
 import { IRootState } from '../store/store'
 import { RouteNames } from '../routes/routes'
 import ItemFilmForSearch from '../components/Search/ItemFilmForSearch'
+import { IFilms, IGenres } from '../types/types'
 // import ItemFilmForSearch from './Main/Results/ItemFilmForSearch'
 
 const userView = {

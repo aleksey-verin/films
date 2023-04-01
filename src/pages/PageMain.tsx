@@ -1,9 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
-import { IFilms } from '../store/actions'
+import { useDispatch, useSelector } from 'react-redux'
 import { IRootState } from '../store/store'
 import Filters from '../components/Main/Filters'
 import Results from '../components/Main/Results'
+import { IFilms } from '../types/types'
+import {
+  resetOffset,
+  setLengthOfFilteredList,
+  setShownList
+} from '../store/actions/actionsPagination'
 
 const defaultFiltersValue = {
   list: 'allFilms',
@@ -13,6 +18,8 @@ const defaultFiltersValue = {
 }
 
 const PageMain = () => {
+  const dispatch = useDispatch()
+
   const initialFilmsList = useSelector((state: IRootState) => state.reducerData.filmsData)
   const initialFavoriteList = useSelector(
     (state: IRootState) => state.reducerFavAndSee.favoriteList
@@ -23,11 +30,11 @@ const PageMain = () => {
 
   const [filteredList, setFilteredList] = useState<IFilms[]>([])
 
-  const pagination = 12
-  const filteredListLength = filteredList.length
-  const [offset, setOffset] = useState(pagination)
+  // const pagination = 12 /////
+  // const filteredListLength = filteredList.length /// не забыть устанавливать длину после фильтрации
+  // const [offset, setOffset] = useState(pagination) ///
 
-  const [shownList, setShownList] = useState<IFilms[]>([])
+  // const [shownList, setShownList] = useState<IFilms[]>([]) /////
 
   const [userFilmList, setUserFilmList] = useState(defaultFiltersValue.list)
   const [sorting, setSorting] = useState(defaultFiltersValue.sorting)
@@ -57,7 +64,7 @@ const PageMain = () => {
     setSorting(defaultFiltersValue.sorting)
     setFilterYear(defaultFiltersValue.filterYear)
     setFilterGenres(defaultFiltersValue.filterGenres)
-    resetOffset()
+    dispatch(resetOffset())
   }
 
   const getInitialFilmData = (filmType: string) => {
@@ -113,6 +120,8 @@ const PageMain = () => {
     if (!sortedData) return
     const filteredData = getFilteredData(sortedData, filterYear, filterGenres)
     setFilteredList(filteredData)
+    dispatch(setShownList(filteredData)) /// возможно переписать (сделать редюсер на фильтрованый список)
+    dispatch(setLengthOfFilteredList(filteredData))
   }, [sorting, filterYear, filterGenres, userFilmList])
 
   //=======
@@ -122,35 +131,39 @@ const PageMain = () => {
   //   }
   // },[])
   //====================
-  const decreaseOffset = () => {
-    if (offset > pagination) {
-      setOffset(offset - pagination)
-    }
-  }
+  // const decreaseOffset = () => {
+  //   if (offset > pagination) {
+  //     setOffset(offset - pagination) /////
+  //   }
+  // }
 
-  const increaseOffset = () => {
-    if (offset < filteredListLength) {
-      setOffset(offset + pagination)
-    }
-  }
+  // const increaseOffset = () => {
+  //   if (offset < filteredListLength) {
+  //     /////
+  //     setOffset(offset + pagination)
+  //   }
+  // }
 
-  const resetOffset = () => {
-    setOffset(pagination)
-  }
-
-  useEffect(() => {
-    setShownList(filteredList.slice(offset - pagination, offset))
-  }, [offset, filteredList])
+  // const resetOffset = () => {
+  //   //////
+  //   setOffset(pagination)
+  // }
+  /////=========================================== поместить куда-то
+  // useEffect(() => {
+  //   setShownList(filteredList.slice(offset - pagination, offset)) ////
+  // }, [offset, filteredList])
+  /////=========================================== поместить куда-то
 
   return (
     <main>
       <div className="main-wrapper">
         <Filters
-          offset={offset}
-          decreaseOffset={decreaseOffset}
-          increaseOffset={increaseOffset}
-          pagination={pagination}
-          filteredListLength={filteredListLength}
+          // offset={offset}
+          // decreaseOffset={decreaseOffset}
+          // increaseOffset={increaseOffset}
+          // pagination={pagination}
+          // filteredListLength={filteredListLength}
+          filteredList={filteredList}
           getSorting={getSorting}
           getFilterYear={getFilterYear}
           sorting={sorting}
@@ -158,11 +171,13 @@ const PageMain = () => {
           getFilterGenres={getFilterGenres}
           filterGenres={filterGenres}
           resetAllFilters={resetAllFilters}
-          resetOffset={resetOffset}
+          // resetOffset={resetOffset}
           userFilmList={userFilmList}
           getUserFilmList={getUserFilmList}
         />
-        <Results shownList={shownList} />
+        <Results
+        // shownList={shownList}
+        />
       </div>
     </main>
   )

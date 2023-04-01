@@ -1,5 +1,6 @@
+import { IFilms } from '../../types/types'
 import { storage, storageGetItem } from '../../utils/storage'
-import { ACTIONS, IFilms } from '../actions'
+import { ACTIONS } from '../actions'
 
 const initialState: IInitialState = {
   favoriteList: storageGetItem(storage.favoriteList) || [],

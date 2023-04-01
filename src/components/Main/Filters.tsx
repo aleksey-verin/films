@@ -1,14 +1,23 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
-import { IGenres } from '../../store/actions'
+import { useDispatch, useSelector } from 'react-redux'
 import { IRootState } from '../../store/store'
+import { IFilms, IGenres } from '../../types/types'
+import { selectorReducerPagination } from '../../store/reducers/reducerPagination'
+import {
+  decreaseOffset,
+  increaseOffset,
+  resetOffset,
+  setShownList
+} from '../../store/actions/actionsPagination'
+import { filterYearData, sortingData } from '../../utils/constants'
 
 type FiltersProps = {
-  offset: number
-  decreaseOffset: () => void
-  increaseOffset: () => void
-  pagination: number
-  filteredListLength: number
+  // offset: number
+  // decreaseOffset: () => void
+  // increaseOffset: () => void
+  // pagination: number
+  // filteredListLength: number
+  filteredList: IFilms[]
   getSorting: (sortType: string) => void
   getFilterYear: (year: string) => void
   sorting: string
@@ -16,24 +25,18 @@ type FiltersProps = {
   getFilterGenres: (genre: number, checked: boolean) => void
   filterGenres: number[]
   resetAllFilters: () => void
-  resetOffset: () => void
+  // resetOffset: () => void
   userFilmList: string
   getUserFilmList: (listType: string) => void
 }
 
-// const sortingValues = [
-//   {value: 'popularDescending', name: 'Популярные по убыванию'},
-//   {value: 'popularAscending', name: 'Популярные по возрастанию'},
-//   {value: 'voteDescending', name: 'Рейтинг по убыванию'},
-//   {value: 'voteAscending', name: 'Рейтинг по возрастанию'},
-// ]
-
 const Filters = ({
-  offset,
-  decreaseOffset,
-  increaseOffset,
-  pagination,
-  filteredListLength,
+  // offset,
+  // decreaseOffset,
+  // increaseOffset,
+  // pagination,
+  // filteredListLength,
+  filteredList,
   getSorting,
   getFilterYear,
   sorting,
@@ -41,42 +44,53 @@ const Filters = ({
   getFilterGenres,
   filterGenres,
   resetAllFilters,
-  resetOffset,
+  // resetOffset,
   userFilmList,
   getUserFilmList
 }: FiltersProps) => {
+  const dispatch = useDispatch()
+
   const isAuth = useSelector((state: IRootState) => state.reducerAuth.isAuth)
   const genres = useSelector((state: IRootState) => state.reducerGenres.genresData)
 
+  const { pagination, offset, lengthFilteredList } = useSelector(selectorReducerPagination)
+
   const currentPage = offset / pagination
-  const amountOfPages = Math.ceil(filteredListLength / pagination)
+  const amountOfPages = Math.ceil(lengthFilteredList / pagination)
 
   const handleFilmList = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const filmList = e.target.value
     getUserFilmList(filmList)
-    resetOffset()
+    dispatch(resetOffset())
   }
 
   const handleSort = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const sortBasicType = e.target.value
     getSorting(sortBasicType)
-    resetOffset()
+    dispatch(resetOffset())
   }
 
   const handleFilter = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const userFilterYear = e.target.value
     getFilterYear(userFilterYear)
-    resetOffset()
+    dispatch(resetOffset())
   }
 
   const handleGenres = (e: React.ChangeEvent<HTMLInputElement>) => {
     const userGenres = Number(e.target.value)
     const checked = e.target.checked
     getFilterGenres(userGenres, checked)
-    resetOffset()
+    dispatch(resetOffset())
   }
 
-  handleFilmList
+  const handleBack = () => {
+    dispatch(decreaseOffset())
+    dispatch(setShownList(filteredList))
+  }
+  const handleForward = () => {
+    dispatch(increaseOffset())
+    dispatch(setShownList(filteredList))
+  }
 
   return (
     <div className="filters">
@@ -103,10 +117,11 @@ const Filters = ({
           <form>
             <label htmlFor="sort">Сортировать по:</label>
             <select onChange={handleSort} value={sorting} name="sort" id="sort">
-              <option value="popularDescending">Популярные по убыванию</option>
-              <option value="popularAscending">Популярные по возрастанию</option>
-              <option value="voteDescending">Рейтинг по убыванию</option>
-              <option value="voteAscending">Рейтинг по возрастанию</option>
+              {sortingData.map(({ name, value }) => (
+                <option key={value} value={value}>
+                  {name}
+                </option>
+              ))}
             </select>
           </form>
         </div>
@@ -114,11 +129,11 @@ const Filters = ({
           <form>
             <label htmlFor="year">Год релиза:</label>
             <select onChange={handleFilter} value={filterYear} name="year" id="year">
-              <option value="none">Без фильтра</option>
-              <option value="2020">2020</option>
-              <option value="2019">2019</option>
-              <option value="2018">2018</option>
-              <option value="2017">2017</option>
+              {filterYearData.map(({ name, value }) => (
+                <option key={value} value={value}>
+                  {name}
+                </option>
+              ))}
             </select>
           </form>
         </div>
@@ -145,12 +160,12 @@ const Filters = ({
       <div className="filters-pagination">
         <div className="filters-pagination__buttons">
           <div className="filters-pagination__button-left">
-            <button disabled={offset <= pagination} onClick={decreaseOffset}>
+            <button disabled={offset <= pagination} onClick={handleBack}>
               Назад
             </button>
           </div>
           <div className="filters-pagination__button-right">
-            <button disabled={offset >= filteredListLength} onClick={increaseOffset}>
+            <button disabled={offset >= lengthFilteredList} onClick={handleForward}>
               Вперед
             </button>
           </div>

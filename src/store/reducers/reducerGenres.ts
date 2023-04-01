@@ -1,5 +1,6 @@
 import mockGenres from '../../mockData/mockGenres'
-import { ACTIONS, IGenres } from '../actions'
+import { IGenres } from '../../types/types'
+import { ACTIONS } from '../actions'
 
 const initialState: IInitialState = {
   genresData: mockGenres
