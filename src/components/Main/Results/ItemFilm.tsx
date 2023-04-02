@@ -1,18 +1,19 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import {
-  addFavorite,
-  addSeeLater,
-  removeFavorite,
-  removeSeeLater,
-  setIsOpen
-} from '../../../store/actions'
-import { IRootState } from '../../../store/store'
 import { RouteNames } from '../../../routes/routes'
 import ImgBookmark from '../../ImagesComponents/ImgBookmark'
 import ImgFavoriteGold from '../../ImagesComponents/ImgFavoriteGold'
 import { IFilms } from '../../../types/types'
+import { selectorReducerAuth } from '../../../store/reducers/reducerAuth'
+import { selectorReducerFavAndSee } from '../../../store/reducers/reducerFavAndSee'
+import { setIsOpen } from '../../../store/actions/actionsPopup'
+import {
+  addFavorite,
+  addSeeLater,
+  removeFavorite,
+  removeSeeLater
+} from '../../../store/actions/actionsFavAndSee'
 
 type ItemFilmProps = {
   item: IFilms
@@ -21,13 +22,9 @@ type ItemFilmProps = {
 const ItemFilm = ({ item }: ItemFilmProps) => {
   const { id, title, vote_average, backdrop_path, poster_path } = item
   const dispatch = useDispatch()
-  const isAuth = useSelector((state: IRootState) => state.reducerAuth.isAuth)
-  const favoriteList: IFilms[] = useSelector(
-    (state: IRootState) => state.reducerFavAndSee.favoriteList
-  )
-  const seeLaterList: IFilms[] = useSelector(
-    (state: IRootState) => state.reducerFavAndSee.seeLaterList
-  )
+  const { isAuth } = useSelector(selectorReducerAuth)
+  const { favoriteList, seeLaterList } = useSelector(selectorReducerFavAndSee)
+
   const isItemInFavoriteList = favoriteList.findIndex((film) => film.id === id) >= 0
   const isItemInSeeLaterList = seeLaterList.findIndex((film) => film.id === id) >= 0
 

@@ -1,23 +1,23 @@
 import { storage, storageGetItem } from '../../utils/storage'
-import { ACTIONS } from '../actions'
+import { ACTIONS_AUTH } from '../actions/actionsAuth'
 import { IRootState } from '../store'
 
-const initialState: IInitialState = {
-  isAuth: storageGetItem(storage.isAuth) || false
-}
-
-type IInitialState = {
+interface initialStateTypes {
   isAuth: boolean
 }
 
-interface IAuthAction {
-  type: typeof ACTIONS.SET_IS_AUTH
+interface reducerAuthTypes {
+  type: string
   payload: boolean
 }
 
-const reducerAuth = (state = initialState, action: IAuthAction) => {
+const initialState: initialStateTypes = {
+  isAuth: storageGetItem(storage.isAuth) || false
+}
+
+const reducerAuth = (state = initialState, action: reducerAuthTypes) => {
   switch (action.type) {
-    case ACTIONS.SET_IS_AUTH:
+    case ACTIONS_AUTH.SET_IS_AUTH:
       return {
         ...state,
         isAuth: action.payload

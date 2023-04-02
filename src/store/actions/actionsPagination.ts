@@ -6,8 +6,6 @@ export const ACTIONS_PAGINATION = {
   RESET_OFFSET: 'RESET_OFFSET',
   SET_LENGTH_OF_FILTERED_LIST: 'SET_LENGTH_OF_FILTERED_LIST',
   SET_SHOWN_LIST: 'SET_SHOWN_LIST'
-  // SET_CURRENT_PAGE: 'SET_CURRENT_PAGE',
-  // SET_AMOUNT_OF_PAGES: 'SET_AMOUNT_OF_PAGES'
 }
 
 export const resetOffset = () => ({
@@ -27,9 +25,3 @@ export const setShownList = (payload: IFilms[]) => ({
   type: ACTIONS_PAGINATION.SET_SHOWN_LIST,
   payload
 })
-// export const setCurrentPage = () => ({
-//   type: ACTIONS_PAGINATION.SET_CURRENT_PAGE
-// })
-// export const setAmountOfPages = () => ({
-//   type: ACTIONS_PAGINATION.SET_AMOUNT_OF_PAGES
-// })

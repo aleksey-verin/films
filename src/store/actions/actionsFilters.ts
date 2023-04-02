@@ -1,4 +1,7 @@
+import { IFilms } from '../../types/types'
+
 export const ACTIONS_FILTERS = {
+  SET_FILTERED_LIST: 'SET_FILTERED_LIST',
   SET_FILTER_FILM_LIST: 'SET_FILTER_FILM_LIST',
   SET_FILTER_SORTING: 'SET_FILTER_SORTING',
   SET_FILTER_YEAR: 'SET_FILTER_YEAR',
@@ -6,6 +9,10 @@ export const ACTIONS_FILTERS = {
   RESET_FILTERS: 'RESET_FILTERS'
 }
 
+export const setFilteredList = (payload: IFilms[]) => ({
+  type: ACTIONS_FILTERS.SET_FILTERED_LIST,
+  payload
+})
 export const setFilterFilmList = (payload: string) => ({
   type: ACTIONS_FILTERS.SET_FILTER_FILM_LIST,
   payload

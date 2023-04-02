@@ -9,3 +9,12 @@ export const transformGenresIntoString = (genresList: IGenres[], genresItem: num
   }
   return 'Жанр неизвестен'
 }
+
+// решил не использовать
+// const getActualGenres = (initialList: IFilms[], genres: IGenres[]): IGenres[] => {
+//   const genresFromInitialList = [...new Set(initialList.map((item) => item.genre_ids).flat())]
+//   const genresForFilm = genresFromInitialList.map((filmGenre) => {
+//     return genres.find((item) => item.id === filmGenre)
+//   })
+//   return genresForFilm.filter((genre) => genre !== undefined) as IGenres[]
+// }

@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { setIsAuth, setIsOpen } from '../store/actions'
 import ImgClose from './ImagesComponents/ImgClose'
 import { checkUsersLogs } from '../utils/checkUser'
+import { setIsAuth } from '../store/actions/actionsAuth'
+import { setIsOpen } from '../store/actions/actionsPopup'
 
 const PageLogin = () => {
   const dispatch = useDispatch()

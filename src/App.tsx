@@ -7,18 +7,17 @@ import Login from './components/Login'
 import PageMain from './pages/PageMain'
 import PageFilm from './pages/PageFilm'
 import PageSearch from './pages/PageSearch'
-import { IRootState } from './store/store'
 import { RouteNames } from './routes/routes'
-// import { setAmountOfPages, setCurrentPage } from './store/actions/actionsPagination'
+import { selectorReducerPopup } from './store/reducers/reducerPopup'
 
 function App() {
-  const isPopupOpen = useSelector((state: IRootState) => state.reducerPopup.isOpen)
+  const { isOpen } = useSelector(selectorReducerPopup)
 
   return (
     <div className="App">
       <BrowserRouter>
         <Header />
-        {isPopupOpen ? <Login /> : null}
+        {isOpen ? <Login /> : null}
         <Routes>
           <Route element={<PageMain />} path={RouteNames.MAIN} />
           <Route element={<PageSearch />} path={RouteNames.SEARCH} />

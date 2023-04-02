@@ -1,14 +1,16 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { Navigate, useParams } from 'react-router-dom'
-import { IRootState } from '../store/store'
 import { transformGenresIntoString } from '../utils/helpers'
+import { selectorReducerData } from '../store/reducers/reducerData'
+import { selectorReducerGenres } from '../store/reducers/reducerGenres'
 
 const PageFilm = () => {
   const { id } = useParams()
 
-  const filmList = useSelector((state: IRootState) => state.reducerData.filmsData)
-  const genres = useSelector((state: IRootState) => state.reducerGenres.genresData)
+  const { filmsData: filmList } = useSelector(selectorReducerData)
+  const { genresData: genres } = useSelector(selectorReducerGenres)
+
   const item = filmList.find((film) => film.id === Number(id))
 
   if (!item) return <Navigate to="/" />

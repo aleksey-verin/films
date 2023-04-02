@@ -1,13 +1,8 @@
 import mockData from '../../mockData/mockData'
 import { IFilms } from '../../types/types'
-import { ACTIONS } from '../actions'
+import { ACTIONS_DATA } from '../actions/actionsData'
 import { IRootState } from '../store'
-
-const initialState: IInitialState = {
-  filmsData: mockData
-}
-
-type IInitialState = {
+interface initialStateTypes {
   filmsData: IFilms[]
 }
 
@@ -16,9 +11,13 @@ interface reducerDataTypes {
   payload: IFilms[]
 }
 
+const initialState: initialStateTypes = {
+  filmsData: mockData
+}
+
 const reducerData = (state = initialState, action: reducerDataTypes) => {
   switch (action.type) {
-    case ACTIONS.SET_FILMS:
+    case ACTIONS_DATA.SET_FILMS:
       return {
         ...state,
         filmsData: action.payload

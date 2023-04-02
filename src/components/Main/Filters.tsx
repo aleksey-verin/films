@@ -3,15 +3,16 @@ import { useDispatch, useSelector } from 'react-redux'
 import { IFilms } from '../../types/types'
 import { setLengthOfFilteredList, setShownList } from '../../store/actions/actionsPagination'
 import { filterListData, filterYearData, sortingData } from '../../utils/constants'
-import Pagination from './Filters/Pagination'
 import { selectorReducerFavAndSee } from '../../store/reducers/reducerFavAndSee'
 import { selectorReducerFilters } from '../../store/reducers/reducerFilters'
+import { selectorReducerData } from '../../store/reducers/reducerData'
+import Pagination from './Filters/Pagination'
 import ResetFilters from './Filters/ResetFilters'
 import FilterFilmList from './Filters/FilterFilmList'
 import FilterSorting from './Filters/FilterSorting'
 import FilterYear from './Filters/FilterYear'
-import { selectorReducerData } from '../../store/reducers/reducerData'
 import FilterGenres from './Filters/FilterGenres'
+import { setFilteredList } from '../../store/actions/actionsFilters'
 
 const Filters = () => {
   const dispatch = useDispatch()
@@ -68,6 +69,7 @@ const Filters = () => {
 
   const getFilteredData = (filmList: string, sorting: string, year: string, genres: number[]) => {
     const filteredByInitialData = filteringInitialFilmData(filmList)
+    dispatch(setFilteredList(filteredByInitialData))
     const filterBySortingData = filteringSortingData(filteredByInitialData, sorting)
     const filteredByYearData = filteringDataYear(filterBySortingData, year)
     const finalFilteredData = filteringDataGenres(filteredByYearData, genres)

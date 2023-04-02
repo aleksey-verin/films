@@ -1,13 +1,14 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
-import { setIsAuth, setIsOpen } from '../store/actions'
-import { IRootState } from '../store/store'
 import { RouteNames } from '../routes/routes'
+import { selectorReducerAuth } from '../store/reducers/reducerAuth'
+import { setIsAuth } from '../store/actions/actionsAuth'
+import { setIsOpen } from '../store/actions/actionsPopup'
 
 const Header = () => {
   const dispatch = useDispatch()
-  const isAuth = useSelector((state: IRootState) => state.reducerAuth.isAuth)
+  const { isAuth } = useSelector(selectorReducerAuth)
 
   const loginOut = () => {
     dispatch(setIsAuth(false))

@@ -1,17 +1,22 @@
-import { ACTIONS } from '../actions'
+import { ACTIONS_POPUP } from '../actions/actionsPopup'
+import { IRootState } from '../store'
 
-const initialState = {
-  isOpen: false
+interface initialStateTypes {
+  isOpen: boolean
 }
 
-interface IPopupAction {
-  type: typeof ACTIONS.SET_IS_OPEN
+interface reducerPopupTypes {
+  type: string
   payload: boolean
 }
 
-const reducerPopup = (state = initialState, action: IPopupAction) => {
+const initialState: initialStateTypes = {
+  isOpen: false
+}
+
+const reducerPopup = (state = initialState, action: reducerPopupTypes) => {
   switch (action.type) {
-    case ACTIONS.SET_IS_OPEN:
+    case ACTIONS_POPUP.SET_IS_OPEN:
       return {
         ...state,
         isOpen: action.payload
@@ -20,5 +25,7 @@ const reducerPopup = (state = initialState, action: IPopupAction) => {
       return state
   }
 }
+
+export const selectorReducerPopup = (state: IRootState) => state.reducerPopup
 
 export default reducerPopup

@@ -1,8 +1,10 @@
+import { IFilms } from '../../types/types'
 import { filterListData, filterYearData, sortingData } from '../../utils/constants'
 import { ACTIONS_FILTERS } from '../actions/actionsFilters'
 import { IRootState } from '../store'
 
 interface initialStateType {
+  filteredList: IFilms[] /// возможно лишнее/
   filterFilmLists: string
   filterSorting: string
   filterYear: string
@@ -11,10 +13,11 @@ interface initialStateType {
 
 interface reducerFiltersTypes {
   type: string
-  payload: string | number[]
+  payload: string | number[] | IFilms[]
 }
 
 const initialState: initialStateType = {
+  filteredList: [],
   filterFilmLists: filterListData.allFilms.value,
   filterSorting: sortingData.voteDescending.value,
   filterYear: filterYearData.none.value,
@@ -23,6 +26,11 @@ const initialState: initialStateType = {
 
 const reducerFilters = (state = initialState, action: reducerFiltersTypes) => {
   switch (action.type) {
+    case ACTIONS_FILTERS.SET_FILTERED_LIST:
+      return {
+        ...state,
+        filteredList: [...action.payload]
+      }
     case ACTIONS_FILTERS.SET_FILTER_FILM_LIST:
       return {
         ...state,

@@ -7,8 +7,6 @@ interface initialStateType {
   lengthFilteredList: number
   pagination: number
   offset: number
-  // amountOfPages: number
-  // currentPage: number
 }
 
 interface PaginationAction {
@@ -21,8 +19,6 @@ const initialState: initialStateType = {
   lengthFilteredList: 0,
   pagination: 12,
   offset: 12
-  // amountOfPages: 1,
-  // currentPage: 1
 }
 
 const reducerPagination = (state = initialState, action: PaginationAction) => {
@@ -52,16 +48,6 @@ const reducerPagination = (state = initialState, action: PaginationAction) => {
         ...state,
         shownList: action.payload.slice(state.offset - state.pagination, state.offset)
       }
-    // case ACTIONS_PAGINATION.SET_AMOUNT_OF_PAGES:
-    //   return {
-    //     ...state,
-    //     amountOfPages: Math.ceil(state.lengthFilteredList / state.pagination)
-    //   }
-    // // case ACTIONS_PAGINATION.SET_CURRENT_PAGE:
-    // //   return {
-    // //     ...state,
-    // //     currentPage: state.offset / state.pagination
-    // //   }
     default:
       return state
   }

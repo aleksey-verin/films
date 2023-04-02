@@ -1,24 +1,23 @@
 import mockGenres from '../../mockData/mockGenres'
 import { IGenres } from '../../types/types'
-import { ACTIONS } from '../actions'
+import { ACTIONS_GENRES } from '../actions/actionsGenres'
 import { IRootState } from '../store'
 
-const initialState: IInitialState = {
-  genresData: mockGenres
-}
-
-type IInitialState = {
+interface initialStateTypes {
   genresData: IGenres[]
 }
 
-interface IDataAction {
+interface reducerGenresTypes {
   type: string
   payload: IGenres[]
 }
 
-const reducerGenres = (state = initialState, action: IDataAction) => {
+const initialState: initialStateTypes = {
+  genresData: mockGenres
+}
+const reducerGenres = (state = initialState, action: reducerGenresTypes) => {
   switch (action.type) {
-    case ACTIONS.SET_GENRES:
+    case ACTIONS_GENRES.SET_GENRES:
       return {
         ...state,
         genresData: action.payload

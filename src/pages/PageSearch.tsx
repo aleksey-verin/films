@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
-import { IRootState } from '../store/store'
-import { RouteNames } from '../routes/routes'
-import ItemFilmForSearch from '../components/Search/ItemFilmForSearch'
-import { IFilms, IGenres } from '../types/types'
-// import ItemFilmForSearch from './Main/Results/ItemFilmForSearch'
+import { IFilms } from '../types/types'
+import { selectorReducerData } from '../store/reducers/reducerData'
+import { selectorReducerGenres } from '../store/reducers/reducerGenres'
+import QuestionOne from '../components/Search/QuestionOne'
+import QuestionTwo from '../components/Search/QuestionTwo'
+import QuestionThree from '../components/Search/QuestionThree'
+import Result from '../components/Search/Result'
 
 const userView = {
   question1: 'question1',
@@ -14,19 +15,20 @@ const userView = {
   result: 'result'
 }
 
-const userAnswer = {
+export const userAnswer = {
   high: 'high',
   low: 'low'
 }
 
 const PageSearch = () => {
-  const initialFilmsList = useSelector((state: IRootState) => state.reducerData.filmsData)
-  const genres = useSelector((state: IRootState) => state.reducerGenres.genresData)
-  if (!genres || !initialFilmsList) return <div>Не удалось загрузить данные с сервера</div>
+  const { filmsData: initialFilmsList } = useSelector(selectorReducerData)
+  const { genresData: genres } = useSelector(selectorReducerGenres)
 
-  const [userGenre, setUserGenre] = useState<number | null>(null)
-  const [userScore, setUserScore] = useState<string | null>(null)
-  const [userPopular, setUserPopular] = useState<string | null>(null)
+  if (!genres || !initialFilmsList) return <div>Не удалось загрузить данные</div>
+
+  const [userGenre, setUserGenre] = useState<number>(0)
+  const [userScore, setUserScore] = useState<string>('')
+  const [userPopular, setUserPopular] = useState<string>('')
   const [filteredList, setFilteredList] = useState<IFilms[]>([])
 
   const [visibleForUser, setVisibleForUser] = useState(userView.question1)
@@ -35,38 +37,7 @@ const PageSearch = () => {
   const [filmCounter, setFilmCounter] = useState(0)
   const [endOfFilteredList, setEndOfFilteredList] = useState(false)
 
-  const getActualGenres = (initialList: IFilms[], genres: IGenres[]): IGenres[] => {
-    const genresFromInitialList = [...new Set(initialList.map((item) => item.genre_ids).flat())]
-    const genresForFilm = genresFromInitialList.map((filmGenre) => {
-      return genres.find((item) => item.id === filmGenre)
-    })
-    return genresForFilm.filter((genre) => genre !== undefined) as IGenres[]
-  }
-
-  const actualGenres = getActualGenres(initialFilmsList, genres) || []
-
-  const handleGenre = (id: number) => {
-    if (!id) return
-    setUserGenre(id)
-    setVisibleForUser(userView.question2)
-  }
-
-  const handleScore = (score: string) => {
-    setUserScore(score)
-    setVisibleForUser(userView.question3)
-  }
-
-  const handlePopular = (score: string) => {
-    setUserPopular(score)
-    setVisibleForUser(userView.result)
-  }
-
-  const getFilteredData = (
-    filmsList: IFilms[],
-    genre: number | null,
-    score: string | null,
-    popular: string | null
-  ) => {
+  const getFilteredData = (filmsList: IFilms[], genre: number, score: string, popular: string) => {
     let userFilmList = filmsList
     if (genre) {
       userFilmList = userFilmList.filter((item) => item.genre_ids.includes(genre))
@@ -109,91 +80,36 @@ const PageSearch = () => {
     setNumberOfFilms(filteredList.length)
   }, [filteredList])
 
+  const handleGenre = (id: number) => {
+    if (!id) return
+    setUserGenre(id)
+    setVisibleForUser(userView.question2)
+  }
+
+  const handleScore = (score: string) => {
+    setUserScore(score)
+    setVisibleForUser(userView.question3)
+  }
+
+  const handlePopular = (score: string) => {
+    setUserPopular(score)
+    setVisibleForUser(userView.result)
+  }
+
   return (
     <div className="search">
       <div className="search-wrapper">
-        {visibleForUser === userView.question1 && (
-          <div className="question">
-            <h2 className="question-title">Выберите жанр:</h2>
-            <div className="question-variants">
-              {actualGenres.map((item) => (
-                <button
-                  onClick={() => handleGenre(item.id)}
-                  key={item?.id}
-                  className="question-variants__item">
-                  {item?.name}
-                </button>
-              ))}
-            </div>
-          </div>
-        )}
-        {visibleForUser === userView.question2 && (
-          <div className="question">
-            <h2 className="question-title">Оценка фильма:</h2>
-            <div className="question-variants">
-              <button
-                onClick={() => handleScore(userAnswer.high)}
-                className="question-variants__item">
-                Высокая
-              </button>
-              <button
-                onClick={() => handleScore(userAnswer.low)}
-                className="question-variants__item">
-                Низкая
-              </button>
-            </div>
-          </div>
-        )}
-        {visibleForUser === userView.question3 && (
-          <div className="question">
-            <h2 className="question-title">Известность фильма:</h2>
-            <div className="question-variants">
-              <button
-                onClick={() => handlePopular(userAnswer.high)}
-                className="question-variants__item">
-                Популярный
-              </button>
-              <button
-                onClick={() => handlePopular(userAnswer.low)}
-                className="question-variants__item">
-                Неизвестный
-              </button>
-            </div>
-          </div>
-        )}
+        {visibleForUser === userView.question1 && <QuestionOne handleGenre={handleGenre} />}
+        {visibleForUser === userView.question2 && <QuestionTwo handleScore={handleScore} />}
+        {visibleForUser === userView.question3 && <QuestionThree handlePopular={handlePopular} />}
         {visibleForUser === userView.result && (
-          <div className="question">
-            {filteredList.length && !endOfFilteredList ? (
-              <>
-                {filmCounter === 0 ? (
-                  <h2 className="question-title">Нашли такой фильм: </h2>
-                ) : (
-                  <h2 className="question-title">А может такой фильм подойдет? </h2>
-                )}
-
-                <div className="question-film">
-                  <ItemFilmForSearch item={filteredList[filmCounter]} />
-                </div>
-                <div className="question-variants">
-                  <button className="question-variants__item">
-                    <Link to={`${RouteNames.FILMS}${filteredList[filmCounter].id}`}>Подходит</Link>
-                  </button>
-                  <button onClick={handleFilmCounter} className="question-variants__item">
-                    Не подходит
-                  </button>
-                </div>
-              </>
-            ) : (
-              <>
-                <h2 className="question-title">Уфы, у нас нет подходящих фильмов..</h2>
-                <div className="question-variants">
-                  <button onClick={handleEndOfFilteredList} className="question-variants__item">
-                    Попробовать еще раз
-                  </button>
-                </div>
-              </>
-            )}
-          </div>
+          <Result
+            filteredList={filteredList}
+            endOfFilteredList={endOfFilteredList}
+            filmCounter={filmCounter}
+            handleFilmCounter={handleFilmCounter}
+            handleEndOfFilteredList={handleEndOfFilteredList}
+          />
         )}
       </div>
     </div>

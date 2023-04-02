@@ -1,39 +1,35 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import ImgBookmark from '../ImagesComponents/ImgBookmark'
+import ImgFavoriteGold from '../ImagesComponents/ImgFavoriteGold'
+import { IFilms } from '../../types/types'
+import { transformGenresIntoString } from '../../utils/helpers'
+import { selectorReducerAuth } from '../../store/reducers/reducerAuth'
+import { selectorReducerGenres } from '../../store/reducers/reducerGenres'
+import { selectorReducerFavAndSee } from '../../store/reducers/reducerFavAndSee'
+import { setIsOpen } from '../../store/actions/actionsPopup'
 import {
   addFavorite,
   addSeeLater,
   removeFavorite,
-  removeSeeLater,
-  setIsOpen
-} from '../../store/actions'
-import { IRootState } from '../../store/store'
-import ImgBookmark from '../ImagesComponents/ImgBookmark'
-import ImgFavoriteGold from '../ImagesComponents/ImgFavoriteGold'
-import { IFilms, IGenres } from '../../types/types'
+  removeSeeLater
+} from '../../store/actions/actionsFavAndSee'
 
 type ItemFilmForSearchProps = {
   item: IFilms
 }
 
 const ItemFilmForSearch = ({ item }: ItemFilmForSearchProps) => {
-  const { id, title, vote_average, backdrop_path, poster_path, overview, genre_ids } = item
+  const { id, title, vote_average, poster_path, overview, genre_ids } = item
   const dispatch = useDispatch()
-  const isAuth = useSelector((state: IRootState) => state.reducerAuth.isAuth)
-  const genres = useSelector((state: IRootState) => state.reducerGenres.genresData)
-  const favoriteList: IFilms[] = useSelector(
-    (state: IRootState) => state.reducerFavAndSee.favoriteList
-  )
-  const seeLaterList: IFilms[] = useSelector(
-    (state: IRootState) => state.reducerFavAndSee.seeLaterList
-  )
+  const { isAuth } = useSelector(selectorReducerAuth)
+  const { genresData: genres } = useSelector(selectorReducerGenres)
+  const { favoriteList, seeLaterList } = useSelector(selectorReducerFavAndSee)
+
   const isItemInFavoriteList = favoriteList.findIndex((film) => film.id === id) >= 0
   const isItemInSeeLaterList = seeLaterList.findIndex((film) => film.id === id) >= 0
 
-  const viewText = title.length > 80 ? title.slice(0, 80) + '..' : title
-
-  const imagePath = poster_path || backdrop_path
-  const url = `https://image.tmdb.org/t/p/w500/${imagePath}`
+  const imageUrl = `https://image.tmdb.org/t/p/w500/${poster_path}`
 
   const handleFavorite = () => {
     if (isAuth) {
@@ -52,18 +48,7 @@ const ItemFilmForSearch = ({ item }: ItemFilmForSearchProps) => {
   }
 
   const styleImage = {
-    backgroundImage: `url(${url})`
-  }
-
-  const genresForView = (genresList: IGenres[], genresItem: number[]) => {
-    let genreView = ''
-    if (genresList.length && genresItem.length) {
-      const genresForFilm = genresItem.map((filmGenre) => {
-        return genresList.find((item) => item.id === filmGenre)
-      })
-      genreView = genresForFilm.map((item) => item?.name).join(', ')
-    }
-    return genreView
+    backgroundImage: `url(${imageUrl})`
   }
 
   return (
@@ -72,7 +57,7 @@ const ItemFilmForSearch = ({ item }: ItemFilmForSearchProps) => {
       <div className="search-item__info movie">
         <div className="movie-actions">
           <div className="movie-actions__score">Рейтинг: {vote_average.toFixed(1)}</div>
-          <div className="movie-actions__genres">{`Жанры: ${genresForView(
+          <div className="movie-actions__genres">{`Жанры: ${transformGenresIntoString(
             genres,
             genre_ids
           )}`}</div>
@@ -87,7 +72,7 @@ const ItemFilmForSearch = ({ item }: ItemFilmForSearchProps) => {
             <ImgBookmark />
           </div>
         </div>
-        <div className="movie-text">{viewText}</div>
+        <div className="movie-text">{title}</div>
         <div className="movie-details">{overview}</div>
       </div>
     </div>
