@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
+import { HashRouter, Navigate, Route, Routes } from 'react-router-dom'
 import './App.css'
 import Header from './components/Header'
 import Login from './components/Login'
@@ -15,7 +15,7 @@ function App() {
 
   return (
     <div className="App">
-      <BrowserRouter>
+      <HashRouter>
         <Header />
         {isOpen ? <Login /> : null}
         <Routes>
@@ -24,7 +24,7 @@ function App() {
           <Route element={<PageFilm />} path={`${RouteNames.FILMS}:id`} />
           <Route path="*" element={<Navigate replace to={RouteNames.MAIN} />} />
         </Routes>
-      </BrowserRouter>
+      </HashRouter>
     </div>
   )
 }
