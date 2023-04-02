@@ -24,6 +24,10 @@ const FilterGenres = () => {
     dispatch(resetOffset())
   }
 
+  const checkGenre = (checkedGenres: number[], id: number): boolean => {
+    return checkedGenres.includes(id) ? true : false
+  }
+
   return (
     <div className="filters-filters__genres">
       <form name="genres">
@@ -32,7 +36,7 @@ const FilterGenres = () => {
             <div key={id}>
               <input
                 onChange={(e) => handleFilterGenres(e, filterGenres)}
-                checked={filterGenres.includes(id)}
+                checked={checkGenre(filterGenres, id)}
                 value={id}
                 type="checkbox"
                 name="genres"
