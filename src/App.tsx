@@ -9,6 +9,7 @@ import PageFilm from './pages/PageFilm'
 import PageSearch from './pages/PageSearch'
 import { IRootState } from './store/store'
 import { RouteNames } from './routes/routes'
+// import { setAmountOfPages, setCurrentPage } from './store/actions/actionsPagination'
 
 function App() {
   const isPopupOpen = useSelector((state: IRootState) => state.reducerPopup.isOpen)

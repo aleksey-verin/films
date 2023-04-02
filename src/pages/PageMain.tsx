@@ -1,153 +1,16 @@
-import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { IRootState } from '../store/store'
+import React from 'react'
+// import { useDispatch, useSelector } from 'react-redux'
+// import { IRootState } from '../store/store'
 import Filters from '../components/Main/Filters'
 import Results from '../components/Main/Results'
-import { IFilms } from '../types/types'
-import {
-  resetOffset,
-  setLengthOfFilteredList,
-  setShownList
-} from '../store/actions/actionsPagination'
-
-const defaultFiltersValue = {
-  list: 'allFilms',
-  sorting: 'voteDescending',
-  filterYear: 'none',
-  filterGenres: []
-}
+// import { IFilms } from '../types/types'
+// import {
+//   resetOffset,
+//   setLengthOfFilteredList,
+//   setShownList
+// } from '../store/actions/actionsPagination'
 
 const PageMain = () => {
-  const dispatch = useDispatch()
-
-  const initialFilmsList = useSelector((state: IRootState) => state.reducerData.filmsData)
-  const initialFavoriteList = useSelector(
-    (state: IRootState) => state.reducerFavAndSee.favoriteList
-  )
-  const initialSeeLaterList = useSelector(
-    (state: IRootState) => state.reducerFavAndSee.seeLaterList
-  )
-
-  const [filteredList, setFilteredList] = useState<IFilms[]>([])
-
-  // const pagination = 12 /////
-  // const filteredListLength = filteredList.length /// не забыть устанавливать длину после фильтрации
-  // const [offset, setOffset] = useState(pagination) ///
-
-  // const [shownList, setShownList] = useState<IFilms[]>([]) /////
-
-  const [userFilmList, setUserFilmList] = useState(defaultFiltersValue.list)
-  const [sorting, setSorting] = useState(defaultFiltersValue.sorting)
-  const [filterYear, setFilterYear] = useState(defaultFiltersValue.filterYear)
-  const [filterGenres, setFilterGenres] = useState<number[]>(defaultFiltersValue.filterGenres)
-
-  const getUserFilmList = (listType: string) => {
-    setUserFilmList(listType)
-  }
-
-  const getSorting = (sortType: string) => {
-    setSorting(sortType)
-  }
-  const getFilterYear = (year: string) => {
-    setFilterYear(year)
-  }
-  const getFilterGenres = (genre: number, checked: boolean) => {
-    if (checked) {
-      setFilterGenres([...filterGenres, genre])
-    } else {
-      setFilterGenres(filterGenres.filter((item) => item !== genre))
-    }
-  }
-
-  const resetAllFilters = () => {
-    setUserFilmList(defaultFiltersValue.list)
-    setSorting(defaultFiltersValue.sorting)
-    setFilterYear(defaultFiltersValue.filterYear)
-    setFilterGenres(defaultFiltersValue.filterGenres)
-    dispatch(resetOffset())
-  }
-
-  const getInitialFilmData = (filmType: string) => {
-    switch (filmType) {
-      case 'allFilms':
-        return initialFilmsList
-      case 'favoriteList':
-        return initialFavoriteList
-      case 'seeLaterList':
-        return initialSeeLaterList
-      default:
-        break
-    }
-  }
-
-  const getSortData = (data: IFilms[], sortType: string) => {
-    switch (sortType) {
-      case 'popularDescending':
-        return [...data.sort((a, b) => b.popularity - a.popularity)]
-      case 'popularAscending':
-        return [...data.sort((a, b) => a.popularity - b.popularity)]
-      case 'voteDescending':
-        return [...data.sort((a, b) => b.vote_average - a.vote_average)]
-      case 'voteAscending':
-        return [...data.sort((a, b) => a.vote_average - b.vote_average)]
-      default:
-        break
-    }
-  }
-
-  const getFilteredData = (data: IFilms[], year: string, genres: number[]) => {
-    let newData = []
-    if (year !== 'none') {
-      newData = [...data.filter((item) => item.release_date.substr(0, 4) === year)]
-    } else {
-      newData = [...data]
-    }
-
-    if (!genres.length) return newData
-
-    newData = newData.filter((item) => {
-      if (genres.every((value) => item.genre_ids.includes(value))) {
-        return item
-      }
-    })
-    return newData
-  }
-
-  useEffect(() => {
-    const userInitialFilmList = getInitialFilmData(userFilmList)
-    if (!userInitialFilmList) return
-    const sortedData = getSortData(userInitialFilmList, sorting)
-    if (!sortedData) return
-    const filteredData = getFilteredData(sortedData, filterYear, filterGenres)
-    setFilteredList(filteredData)
-    dispatch(setShownList(filteredData)) /// возможно переписать (сделать редюсер на фильтрованый список)
-    dispatch(setLengthOfFilteredList(filteredData))
-  }, [sorting, filterYear, filterGenres, userFilmList])
-
-  //=======
-  // useEffect(()=> {
-  //   return () => {
-  // dispatch(setFilms(mockData))
-  //   }
-  // },[])
-  //====================
-  // const decreaseOffset = () => {
-  //   if (offset > pagination) {
-  //     setOffset(offset - pagination) /////
-  //   }
-  // }
-
-  // const increaseOffset = () => {
-  //   if (offset < filteredListLength) {
-  //     /////
-  //     setOffset(offset + pagination)
-  //   }
-  // }
-
-  // const resetOffset = () => {
-  //   //////
-  //   setOffset(pagination)
-  // }
   /////=========================================== поместить куда-то
   // useEffect(() => {
   //   setShownList(filteredList.slice(offset - pagination, offset)) ////
@@ -158,26 +21,18 @@ const PageMain = () => {
     <main>
       <div className="main-wrapper">
         <Filters
-          // offset={offset}
-          // decreaseOffset={decreaseOffset}
-          // increaseOffset={increaseOffset}
-          // pagination={pagination}
-          // filteredListLength={filteredListLength}
-          filteredList={filteredList}
-          getSorting={getSorting}
-          getFilterYear={getFilterYear}
-          sorting={sorting}
-          filterYear={filterYear}
-          getFilterGenres={getFilterGenres}
-          filterGenres={filterGenres}
-          resetAllFilters={resetAllFilters}
-          // resetOffset={resetOffset}
-          userFilmList={userFilmList}
-          getUserFilmList={getUserFilmList}
+        // filteredList={filteredList}
+        // getSorting={getSorting}
+        // getFilterYear={getFilterYear}
+        // sorting={sorting}
+        // filterYear={filterYear}
+        // getFilterGenres={getFilterGenres}
+        // filterGenres={filterGenres}
+        // resetAllFilters={resetAllFilters}
+        // userFilmList={userFilmList}
+        // getUserFilmList={getUserFilmList}
         />
-        <Results
-        // shownList={shownList}
-        />
+        <Results />
       </div>
     </main>
   )

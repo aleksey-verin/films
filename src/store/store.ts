@@ -5,6 +5,7 @@ import reducerPopup from './reducers/reducerPopup'
 import reducerFavAndSee from './reducers/reducerFavAndSee'
 import reducerGenres from './reducers/reducerGenres'
 import reducerPagination from './reducers/reducerPagination'
+import reducerFilters from './reducers/reducerFilters'
 import { storage, storageSetItem } from '../utils/storage'
 import { composeWithDevTools } from 'redux-devtools-extension'
 
@@ -14,7 +15,8 @@ export const rootReducer = combineReducers({
   reducerAuth,
   reducerPopup,
   reducerFavAndSee,
-  reducerPagination
+  reducerPagination,
+  reducerFilters
 })
 
 export const store = createStore(rootReducer, composeWithDevTools())

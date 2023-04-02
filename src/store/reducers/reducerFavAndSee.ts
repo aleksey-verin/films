@@ -1,6 +1,7 @@
 import { IFilms } from '../../types/types'
 import { storage, storageGetItem } from '../../utils/storage'
 import { ACTIONS } from '../actions'
+import { IRootState } from '../store'
 
 const initialState: IInitialState = {
   favoriteList: storageGetItem(storage.favoriteList) || [],
@@ -45,5 +46,7 @@ const reducerFavAndSee = (state = initialState, action: IDataAction) => {
       return state
   }
 }
+
+export const selectorReducerFavAndSee = (state: IRootState) => state.reducerFavAndSee
 
 export default reducerFavAndSee

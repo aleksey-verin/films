@@ -1,6 +1,7 @@
 import mockData from '../../mockData/mockData'
 import { IFilms } from '../../types/types'
 import { ACTIONS } from '../actions'
+import { IRootState } from '../store'
 
 const initialState: IInitialState = {
   filmsData: mockData
@@ -26,5 +27,7 @@ const reducerData = (state = initialState, action: reducerDataTypes) => {
       return state
   }
 }
+
+export const selectorReducerData = (state: IRootState) => state.reducerData
 
 export default reducerData

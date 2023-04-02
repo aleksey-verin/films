@@ -1,6 +1,7 @@
 import mockGenres from '../../mockData/mockGenres'
 import { IGenres } from '../../types/types'
 import { ACTIONS } from '../actions'
+import { IRootState } from '../store'
 
 const initialState: IInitialState = {
   genresData: mockGenres
@@ -26,5 +27,7 @@ const reducerGenres = (state = initialState, action: IDataAction) => {
       return state
   }
 }
+
+export const selectorReducerGenres = (state: IRootState) => state.reducerGenres
 
 export default reducerGenres

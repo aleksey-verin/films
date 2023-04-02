@@ -1,5 +1,6 @@
 import { storage, storageGetItem } from '../../utils/storage'
 import { ACTIONS } from '../actions'
+import { IRootState } from '../store'
 
 const initialState: IInitialState = {
   isAuth: storageGetItem(storage.isAuth) || false
@@ -25,5 +26,7 @@ const reducerAuth = (state = initialState, action: IAuthAction) => {
       return state
   }
 }
+
+export const selectorReducerAuth = (state: IRootState) => state.reducerAuth
 
 export default reducerAuth
