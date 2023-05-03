@@ -63,6 +63,7 @@ input {
   font-family: inherit;
   background-color: #1a1a1a;
   cursor: pointer;
+  color: rgba(255, 255, 255, 0.87);
   transition: border-color 0.25s;
 }
 button:hover,
@@ -96,6 +97,7 @@ button:hover:disabled {
   select,
   input {
     background-color: #f9f9f9;
+    color: #213547;
   }
   button:disabled {
     border-color: #cecece;
