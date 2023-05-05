@@ -18,7 +18,7 @@
 Recommendation: If movie cover images are not loading, please use a VPN services.
 </p>
 <p>
-Test login credentials</br>
+Test login credentials:</br>
 username - test@test.com</br>
 password - 123
 </p>
