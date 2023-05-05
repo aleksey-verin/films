@@ -1,4 +1,4 @@
-# App for real estate agents
+# App for searching and selecting movies
 
 ## Summary
 
